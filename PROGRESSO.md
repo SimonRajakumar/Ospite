@@ -62,45 +62,37 @@ How it was checked:
 
 Not touched, as agreed: C1, C2, C6, C7, C8, I1, I2, I3, I5, I6, I7, I8, I11 step 1, I16, I17, I20, N3, N10, and the 30 November lines.
 
-## Phase 2, Part B: design and flow (in progress, 13 October 2026)
+## Phase 2, Part B: design and flow (done, 13 October 2026)
 
-Done and committed:
-- `c7daf4f` **I15, option (b):** the commissions chart in the palette.
-  - Black for the platform line.
-  - Bordeaux for the owner's page and the shaded area.
-  - Brass dashed line for the threshold, with the darker brass label.
-  - Grey for the vertical cursor, so it is not confused with the black line.
-  - Checked at 360 and 1280 px.
+Simon's answers: commit C3 and I4 as two commits; sticky bar keyed on the FIRST hero button; "Fa per te?" stays before the empty slot and the form; fix the chart labels now, positions only.
 
-Built, **not committed**, waiting for Simon's OK (working copy only):
-- **C3:**
-  - The sticky bar watches the hero buttons instead of the whole hero.
-  - The wheel is 17,5rem wide on phones (under 40rem).
-  - "Il viaggio" on phones shows one phone (first screen) above the four steps; the four cloned phones are gone.
-  - Desktop: all pages pixel-identical.
-- **I4:**
-  - Home order: hero → calculator → "Tre cose" → price → "Il viaggio" → "Fa per te?" → empty hidden slot `<section id="chi-ce-dietro" hidden>` → form.
-  - The price block on the home page loses its ivory background, so the bands keep alternating.
-  - The README describes the slot.
-- **Screenshots** in `screenshot-parte-B/` (not committed): full page and first screen at 360 px, before and after, plus a side-by-side comparison.
+| Commit | Theme | Finding |
+|---|---|---|
+| c7daf4f | Commissions chart in the palette: black platform, bordeaux owner's page, brass dashed threshold, grey cursor | I15 (b) |
+| 96df346 | Phones: sticky bar follows the first hero button; wheel 17,5rem on phones; one phone above the four steps in "Il viaggio" | C3 |
+| dab434b | Home order: hero → calculator → "Tre cose" → price → "Il viaggio" → "Fa per te?" → empty hidden slot `<section id="chi-ce-dietro" hidden>` → form. The home price block is on paper, so the bands keep alternating. | I4 |
+| 555186e | Chart labels: on phones the threshold lines sit in a band above the plot; line labels never crossed by a line; threshold labels flip left when far right | Simon's question 4 |
 
-Measured at 360 px (phone 360 × 640):
+Home page at 360 px (360 × 640 phone):
 
 | | Before | After |
 |---|---|---|
-| First button (bottom edge) | 724 | 724 (unchanged: the hero text above it is unchanged) |
-| Sticky bar | appears at 1.480 | **visible on the first screen** (the hero buttons are below it); hides while the hero buttons are on screen; reappears at **788** |
+| First button (bottom edge) | 724 | 724 (hero text unchanged) |
+| Sticky bar | appears at 1.480 | **visible on the first screen** (the first button is below it), hidden while that button is on screen, back at **724**: there is always a button in sight |
 | Price | 6.200 | **3.724** |
 | Calculator | 7.660 | **1.466** |
 | Form | 9.080 | **7.495** |
 | Page height | 10.556 | **8.972** |
 
-## What Simon must decide (Part B)
+Checks:
+- After each commit: all 8 pages at 360 and 1280 px, no JavaScript errors, no CSP violations, zero requests to other servers, no sideways scrolling, no layout shift.
+- C3: desktop pixel-identical on every page.
+- Chart labels: 10 slider states × 2 widths. Every number in the chart and the receipt is identical before and after. Only the phone chart is 32 px taller.
 
-1. **OK to commit C3 + I4** as they are?
-2. **Sticky bar trigger:** it reappears at 788 px, when *both* hero buttons have left the screen (at 360 px they sit one above the other). If you prefer it keyed on the first button only, it would reappear at 724 px.
-3. **"Fa per te?" placement:** your list for the new order did not mention it. I kept it (no wording removed), just before the empty "Chi c'è dietro" slot and the form, as a last honest filter. Say if you want it elsewhere.
-4. **Pre-existing, not fixed:** on the commissions chart at 360 px, the label "più i 68 € al mese del piano" touches the label "Piattaforma", and "Dalla tua pagina" sits on its own line. Fix now or later?
+Left as it was (pre-existing, outside the request): at extreme settings (a 200 € stay, or 0 € of ads with a 25% commission) the cursor value can touch the "1.000 €" axis label.
+
+`screenshot-parte-B/` stays local. It is listed in `.git/info/exclude`, which is never committed, so it is not in the repo.
+
 ## Phase 3: text proposals in TESTI-PROPOSTE.md (waiting)
 ## Phase 4: animations (waiting)
 
@@ -109,7 +101,7 @@ Measured at 360 px (phone 360 × 640):
 ## What Simon must decide
 
 1. **Branch on GitHub:** decided. The work stays on `audit-2026-10` locally; the commits go to GitHub as `claude/nifty-rubin-ey0ew4`, the only branch this session can push to.
-2. **Part B decisions:** see the section above.
+2. **Next:** your "go" for Phase 3 (text proposals in `TESTI-PROPOSTE.md`). Not started.
 3. **Still open from the audit:**
    - C2 wording: "senza commissioni" is still on 5 pages, plus the README launch list (item 10).
    - The share image `images/condividi.jpg` has "Per chi affitta", "annunci" and the price baked into the picture. If I2 or I3 change the wording, the image must be remade too.
