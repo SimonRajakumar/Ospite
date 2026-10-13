@@ -179,7 +179,8 @@
     var segs = $$(".segmenti button", calc);
     var rAltra = $("#r-altra"), wrapAltra = $("#c-altra"), cIva = $("#c-iva"), rStay = $("#r-sogg"), rAds = $("#r-ann");
     var svg = $("#grafico-svg"), esito = $("#esito");
-    var C_PIATT = "#D3362D", C_DIR = "#2457E6", C_SOGLIA = "#A27B3F", C_SOGLIA_TESTO = "#8A6A35"; /* testo: 5:1 su bianco */
+    /* colori del sito: nero per la piattaforma, bordeaux per la tua pagina, ottone tratteggiato per la soglia */
+    var C_PIATT = "#0D0B0C", C_DIR = "#6E1F2B", C_SOGLIA = "#B08D57", C_SOGLIA_TESTO = "#8A6A35"; /* testo della soglia: 5:1 su bianco */
     var diciCalc = annunciatore(calc);
     var ridisegna = function () { draw(); diciCalc(esito.textContent); };
     segs.forEach(function (b) {
@@ -223,7 +224,7 @@
       o.push(T(sx(xn) - 2, sy(pl(xn)) + (up ? -10 : 20), "Piattaforma", 'text-anchor="end" style="fill:' + C_PIATT + ';font-weight:600;font-size:13px"'));
       o.push(T(sx(xn) - 2, sy(dr(xn)) + (up ? 22 : -10), "Dalla tua pagina", 'text-anchor="end" style="fill:' + C_DIR + ';font-weight:600;font-size:13px"'));
       var cx = sx(v), left = small ? cx > 95 : cx > W * 0.72, edge = cx > W * 0.72, pv = pl(v), dv = dr(v), pUp = pv >= dv;
-      o.push('<line x1="' + cx + '" x2="' + cx + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="#1E1919" stroke-opacity=".35" stroke-width="1"/>');
+      o.push('<line x1="' + cx + '" x2="' + cx + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="#675E59" stroke-opacity=".45" stroke-width="1"/>');
       o.push('<circle cx="' + cx + '" cy="' + sy(pv) + '" r="6.5" fill="' + C_PIATT + '" stroke="#fff" stroke-width="2"/>');
       o.push('<circle cx="' + cx + '" cy="' + sy(dv) + '" r="6.5" fill="' + C_DIR + '" stroke="#fff" stroke-width="2"/>');
       o.push(T(left ? cx - 11 : cx + 11, sy(pv) + (pUp ? -10 : 20), euro(pv), (left ? 'text-anchor="end" ' : "") + 'style="fill:' + C_PIATT + ';font-weight:600;font-size:13px"'));

@@ -177,7 +177,7 @@ h2{font-size:clamp(2.1rem, 5vw, 3.5rem)}
 .colonna dt{color:var(--testo2)}
 .colonna dd{margin:0;text-align:right;padding-left:.75rem}
 .colonna .tot{border-top:1px solid var(--linea);padding-top:.45rem;margin-top:.2rem;font-weight:600;color:var(--testo)}
-.esito{grid-column:1 / -1;font-family:var(--display);font-size:clamp(1.4rem, 2.8vw, 1.9rem);line-height:1.25;padding-left:1.1rem;border-left:3px solid #2457E6}
+.esito{grid-column:1 / -1;font-family:var(--display);font-size:clamp(1.4rem, 2.8vw, 1.9rem);line-height:1.25;padding-left:1.1rem;border-left:3px solid var(--bordeaux)}
 .esito.no{border-left-style:dashed;border-left-color:var(--testo2)}
 @media (max-width:30rem){.ricevuta{grid-template-columns:1fr}}
 
