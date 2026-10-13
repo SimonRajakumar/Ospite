@@ -277,6 +277,8 @@ h2{font-size:clamp(2.1rem, 5vw, 3.5rem)}
 .q-op:hover{border-color:var(--bordeaux);background:var(--carta)}
 .q-indietro{margin-top:1.2rem;background:none;border:0;padding:0;font:500 .95rem var(--sans);color:var(--testo2);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .q-esito h3{font-size:clamp(1.9rem, 4.2vw, 2.6rem)}
+/* titoli che ricevono il fuoco solo da script (questionario): niente anello */
+.q-titolo:focus,.q-esito h3:focus{outline:none}
 .q-esito p{margin-top:1rem;font-size:1.1rem}
 .q-azioni{margin-top:1.7rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
 

@@ -221,23 +221,27 @@
       { q: "Da dove arrivano oggi le prenotazioni?", k: "canale", o: [["Solo dalle piattaforme", "piatt"], ["Piattaforme e qualche diretta", "misto"], ["Soprattutto dirette", "dirette"]] },
       { q: "Hai un sito dove si può prenotare?", k: "sito", o: [["No", "no"], ["Ho un sito, ma non si prenota", "nopren"], ["Sì", "si"]] }
     ];
-    var step = 0, ans = {}, lab = {};
+    var step = 0, ans = {}, lab = {}, barra = 0, toccato = false;
     var mk = function (tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; };
     var renderQ = function () {
       var it = Q[step]; quiz.innerHTML = "";
-      var bar = mk("div", "q-barra"), fill = mk("span"); fill.style.width = (step / Q.length * 100) + "%"; bar.appendChild(fill); quiz.appendChild(bar);
+      /* la barra parte da zero e si riempie a ogni risposta data */
+      var bar = mk("div", "q-barra"), fill = mk("span"); fill.style.width = barra + "%"; bar.appendChild(fill); quiz.appendChild(bar);
       quiz.appendChild(mk("p", "q-conta", "Domanda " + (step + 1) + " di " + Q.length));
-      quiz.appendChild(mk("p", "q-titolo", it.q));
+      var tit = mk("p", "q-titolo", it.q); tit.tabIndex = -1; quiz.appendChild(tit);
       var ops = mk("div", "q-opzioni");
       it.o.forEach(function (o) {
         var b = mk("button", "q-op", o[0]); b.type = "button";
         if (ans[it.k] === o[1]) { b.classList.add("scelta"); b.setAttribute("aria-pressed", "true"); }
-        b.addEventListener("click", function () { ans[it.k] = o[1]; lab[it.k] = o[0]; step++; step < Q.length ? renderQ() : renderR(); });
+        b.addEventListener("click", function () { ans[it.k] = o[1]; lab[it.k] = o[0]; step++; toccato = true; step < Q.length ? renderQ() : renderR(); });
         ops.appendChild(b);
       });
       quiz.appendChild(ops);
-      if (step > 0) { var bk = mk("button", "q-indietro", "Indietro"); bk.type = "button"; bk.addEventListener("click", function () { step--; renderQ(); }); quiz.appendChild(bk); }
-      requestAnimationFrame(function () { fill.style.width = ((step + 1) / Q.length * 100) + "%"; });
+      if (step > 0) { var bk = mk("button", "q-indietro", "Indietro"); bk.type = "button"; bk.addEventListener("click", function () { step--; toccato = true; renderQ(); }); quiz.appendChild(bk); }
+      barra = step / Q.length * 100;
+      requestAnimationFrame(function () { fill.style.width = barra + "%"; });
+      /* dopo una risposta il fuoco va sulla nuova domanda (non al primo caricamento della pagina) */
+      if (toccato) tit.focus({ preventScroll: true });
     };
     var renderR = function () {
       var t, p;
@@ -247,15 +251,18 @@
       else { t = "Da valutare insieme"; p = "In quindici minuti capiamo se i conti tornano."; }
       var extra = { no: " Partiremmo dalla pagina di prenotazione.", nopren: " Aggiungeremmo la prenotazione al tuo sito.", si: " Partiremmo da annunci e prezzi." }[ans.sito] || "";
       quiz.innerHTML = "";
-      var box = mk("div", "q-esito"); box.appendChild(mk("h3", "", t)); box.appendChild(mk("p", "", p + extra));
+      /* il risultato e' l'unica parte annunciata dai lettori di schermo; il fuoco va sul suo titolo */
+      var box = mk("div", "q-esito"), h = mk("h3", "", t); h.tabIndex = -1; box.setAttribute("aria-live", "polite");
+      box.appendChild(h); box.appendChild(mk("p", "", p + extra));
       var acts = mk("div", "q-azioni");
       var a = mk("button", "btn btn-vino", "Raccontaci la tua casa"); a.type = "button";
       a.addEventListener("click", function () {
         precompila({ unita: { "1": "1", "2-5": "Da 2 a 5", "6-10": "Da 6 a 10", "10+": "Più di 10" }[ans.u],
           msg: "Dal questionario: unità " + lab.u + "; notti vuote: " + lab.vuote + "; prenotazioni oggi: " + lab.canale + "; sito: " + lab.sito + "." });
       });
-      var again = mk("button", "q-indietro", "Ricomincia"); again.type = "button"; again.addEventListener("click", function () { step = 0; ans = {}; lab = {}; renderQ(); });
+      var again = mk("button", "q-indietro", "Ricomincia"); again.type = "button"; again.addEventListener("click", function () { step = 0; ans = {}; lab = {}; barra = 0; renderQ(); });
       acts.appendChild(a); acts.appendChild(again); box.appendChild(acts); quiz.appendChild(box);
+      h.focus({ preventScroll: true });
     };
     renderQ();
   }
