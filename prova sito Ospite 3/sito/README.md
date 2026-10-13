@@ -8,7 +8,7 @@ Sito statico in italiano per un servizio a chi affitta case e appartamenti a Tor
 
 | File | Cosa contiene |
 |---|---|
-| `index.html` | Titolo con prezzo, la ruota dell'ospite, tre cose che facciamo, conto rapido (3 numeri), il viaggio nel telefono, prezzi, fa per te / non fa per te, modulo di contatto |
+| `index.html` | Titolo con prezzo e ruota dell'ospite; il conto rapido (3 numeri); tre cose che facciamo; prezzi; il viaggio nel telefono; fa per te / non fa per te; uno spazio vuoto e nascosto per «Chi c'è dietro» (`<section id="chi-ce-dietro" hidden>`: per usarlo, togli `hidden` e scrivi dentro); modulo di contatto |
 | `commissioni-airbnb-booking.html` | "Il conto": confronto per una prenotazione (grafico rosso/blu) e conto su un anno con tutte le ipotesi modificabili |
 | `come-lavoriamo.html` | Primi sette giorni, ogni settimana, la prova di 60 giorni, chi paga cosa, prezzi, questionario "Fa per te?" |
 | `prenotazioni-dirette-torino.html` | Pagina locale (Torino e Piemonte) |

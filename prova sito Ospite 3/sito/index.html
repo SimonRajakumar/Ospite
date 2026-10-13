@@ -70,15 +70,24 @@
     </ul>
   </section>
 
-  <section class="compatta" aria-labelledby="perte-titolo">
+  <section id="conto" aria-labelledby="conto-titolo">
     <div class="wrap">
-      <h2 id="perte-titolo">Fa per te?</h2>
-      <div class="si-no">
-        <div class="si"><h3>Sì, se</h3><ul><li>affitti almeno una casa con notti vuote, o con ospiti che tornano</li><li>vuoi sapere quanto ti costano davvero le piattaforme</li><li>preferisci provare due mesi prima di decidere</li></ul></div>
-        <div class="no"><h3>No, se</h3><ul><li>cerchi chi gestisca chiavi, ospiti e pulizie</li><li>vuoi risultati garantiti prima di iniziare</li><li>vuoi lasciare Airbnb e Booking</li></ul>
-          <p class="si-no-uscita">Non ti ritrovi? Scrivici lo stesso: in quindici minuti ti diciamo se conosciamo qualcuno che fa al caso tuo.</p></div>
+      <h2 id="conto-titolo">Quanto ti resta in un anno</h2>
+      <p class="intro">Tre numeri della tua casa. Il resto lo stimiamo con ipotesi prudenti.</p>
+      <div class="conto" data-conto="mini">
+        <div class="conto-campi">
+          <div class="comando"><label for="m-u">Unità <output data-v="u" for="m-u"></output></label><input id="m-u" data-k="u" type="range" min="1" max="20" step="1" value="3"></div>
+          <div class="comando"><label for="m-p">Prezzo medio a notte <output data-v="p" for="m-p"></output></label><input id="m-p" data-k="p" type="range" min="50" max="600" step="10" value="150"></div>
+          <div class="comando"><label for="m-o">Occupazione <output data-v="o" for="m-o"></output></label><input id="m-o" data-k="o" type="range" min="20" max="95" step="5" value="60"><p class="aiuto">Quante notti su cento sono prenotate.</p></div>
+          <p class="conto-ipotesi">Ipotesi: il 15% delle prenotazioni passa alla tua pagina, riempiamo il 10% delle notti vuote, annunci da 3 € al giorno per unità. Già tolti il 3% del pagamento online e il 20% di costo per ogni notte in più. I prezzi migliori non li contiamo. <a href="commissioni-airbnb-booking.html#numeri">Tutte le ipotesi</a>.</p>
+        </div>
+        <div class="conto-esito">
+          <div class="riga"><div class="lbl">Oggi lasci alle piattaforme, in un anno</div><div class="num" data-o="oggi"></div></div>
+          <div class="riga"><div class="lbl">Con noi ne recuperi, al netto di tutto</div><div class="num grande" data-o="resta"></div><p class="pereuro" data-o="pereuro"></p></div>
+          <div class="riga"><div class="lbl">Ci paghi, in un anno</div><div class="num" data-o="piano"></div><p class="nota" data-o="primoanno"></p></div>
+          <div class="riga conto-azioni"><button class="btn btn-vino" type="button" data-verifica>Verifichiamolo sulla tua casa</button><a class="link-freccia" href="commissioni-airbnb-booking.html#anno">Cambia le ipotesi</a></div>
+        </div>
       </div>
-      <p class="si-no-link"><a class="link-freccia" href="come-lavoriamo.html#fa-per-te">Rispondi a quattro domande</a></p>
     </div>
   </section>
 
@@ -90,6 +99,33 @@
         <article><h3>Gli annunci</h3><p>Google per chi cerca casa a Torino, Instagram per chi è già stato tuo ospite. Li paghi tu, direttamente; noi li seguiamo ogni settimana.</p></article>
         <article><h3>La tua scheda su Airbnb e Booking</h3><p>Rivediamo i prezzi ogni settimana: proponiamo, decidi tu. Riscriviamo titolo e descrizione e rimettiamo in ordine le foto che hai già.</p></article>
       </div>
+    </div>
+  </section>
+
+  <section id="prezzi" aria-labelledby="prezzi-titolo">
+    <div class="wrap">
+      <h2 id="prezzi-titolo">Un prezzo, scritto qui.</h2>
+      <div class="prezzi">
+        <div class="prezzo-card">
+          <h3>Il piano</h3>
+          <p class="prezzo-cifra">68 € al mese + 1,5%</p>
+          <p class="prezzo-sotto">L'1,5% solo sulle prenotazioni fatte sulla tua pagina. Su Airbnb e Booking non prendiamo nulla.</p>
+          <ul class="prezzo-lista">
+            <li>La tua pagina di prenotazione, collegata ad Airbnb e Booking</li>
+            <li>Annunci su Google e Instagram, seguiti ogni settimana</li>
+            <li>La tua scheda su Airbnb e Booking: prezzi, testi, foto</li>
+            <li>Un resoconto al mese, in una pagina</li>
+          </ul>
+        </div>
+        <div class="prezzo-card scuro">
+          <h3>I primi 60 giorni</h3>
+          <p class="prezzo-cifra">34 € al mese + 0,75%</p>
+          <p class="prezzo-sotto">Metà prezzo per chi inizia entro il 30 novembre 2026, per vedere i numeri veri prima di decidere.</p>
+          <p class="prezzo-azione"><a class="btn btn-vino" href="#contatti">Inizia la prova</a></p>
+        </div>
+      </div>
+      <p class="prezzo-esempio"><strong>Quanto costa davvero, tutto compreso.</strong> Con 3 unità a 150 € a notte e il 60% di occupazione: il piano circa 95 € al mese, gli annunci consigliati circa 270 €, Lodgify da circa 33 €. Oggi, con le stesse case, le piattaforme trattengono circa 1.270 € al mese.</p>
+      <p class="prezzo-nota">Impostazione inclusa. Annunci e Lodgify li paghi tu, direttamente: Lodgify parte da circa 33 € al mese nel piano senza commissioni e cresce con le unità (<a href="https://www.lodgify.com/it/" target="_blank" rel="noopener">listino su lodgify.com</a>). Disdici quando vuoi, con 30 giorni di preavviso. Più di 10 unità? Prezzo su misura. Nei primi 60 giorni paghi metà e misuriamo insieme: se i numeri non tornano, te lo diciamo noi.</p>
     </div>
   </section>
 
@@ -156,53 +192,19 @@
     </div>
   </section>
 
-  <section class="sfondo-avorio" id="prezzi" aria-labelledby="prezzi-titolo">
+  <section class="compatta" aria-labelledby="perte-titolo">
     <div class="wrap">
-      <h2 id="prezzi-titolo">Un prezzo, scritto qui.</h2>
-      <div class="prezzi">
-        <div class="prezzo-card">
-          <h3>Il piano</h3>
-          <p class="prezzo-cifra">68 € al mese + 1,5%</p>
-          <p class="prezzo-sotto">L'1,5% solo sulle prenotazioni fatte sulla tua pagina. Su Airbnb e Booking non prendiamo nulla.</p>
-          <ul class="prezzo-lista">
-            <li>La tua pagina di prenotazione, collegata ad Airbnb e Booking</li>
-            <li>Annunci su Google e Instagram, seguiti ogni settimana</li>
-            <li>La tua scheda su Airbnb e Booking: prezzi, testi, foto</li>
-            <li>Un resoconto al mese, in una pagina</li>
-          </ul>
-        </div>
-        <div class="prezzo-card scuro">
-          <h3>I primi 60 giorni</h3>
-          <p class="prezzo-cifra">34 € al mese + 0,75%</p>
-          <p class="prezzo-sotto">Metà prezzo per chi inizia entro il 30 novembre 2026, per vedere i numeri veri prima di decidere.</p>
-          <p class="prezzo-azione"><a class="btn btn-vino" href="#contatti">Inizia la prova</a></p>
-        </div>
+      <h2 id="perte-titolo">Fa per te?</h2>
+      <div class="si-no">
+        <div class="si"><h3>Sì, se</h3><ul><li>affitti almeno una casa con notti vuote, o con ospiti che tornano</li><li>vuoi sapere quanto ti costano davvero le piattaforme</li><li>preferisci provare due mesi prima di decidere</li></ul></div>
+        <div class="no"><h3>No, se</h3><ul><li>cerchi chi gestisca chiavi, ospiti e pulizie</li><li>vuoi risultati garantiti prima di iniziare</li><li>vuoi lasciare Airbnb e Booking</li></ul>
+          <p class="si-no-uscita">Non ti ritrovi? Scrivici lo stesso: in quindici minuti ti diciamo se conosciamo qualcuno che fa al caso tuo.</p></div>
       </div>
-      <p class="prezzo-esempio"><strong>Quanto costa davvero, tutto compreso.</strong> Con 3 unità a 150 € a notte e il 60% di occupazione: il piano circa 95 € al mese, gli annunci consigliati circa 270 €, Lodgify da circa 33 €. Oggi, con le stesse case, le piattaforme trattengono circa 1.270 € al mese.</p>
-      <p class="prezzo-nota">Impostazione inclusa. Annunci e Lodgify li paghi tu, direttamente: Lodgify parte da circa 33 € al mese nel piano senza commissioni e cresce con le unità (<a href="https://www.lodgify.com/it/" target="_blank" rel="noopener">listino su lodgify.com</a>). Disdici quando vuoi, con 30 giorni di preavviso. Più di 10 unità? Prezzo su misura. Nei primi 60 giorni paghi metà e misuriamo insieme: se i numeri non tornano, te lo diciamo noi.</p>
+      <p class="si-no-link"><a class="link-freccia" href="come-lavoriamo.html#fa-per-te">Rispondi a quattro domande</a></p>
     </div>
   </section>
 
-  <section id="conto" aria-labelledby="conto-titolo">
-    <div class="wrap">
-      <h2 id="conto-titolo">Quanto ti resta in un anno</h2>
-      <p class="intro">Tre numeri della tua casa. Il resto lo stimiamo con ipotesi prudenti.</p>
-      <div class="conto" data-conto="mini">
-        <div class="conto-campi">
-          <div class="comando"><label for="m-u">Unità <output data-v="u" for="m-u"></output></label><input id="m-u" data-k="u" type="range" min="1" max="20" step="1" value="3"></div>
-          <div class="comando"><label for="m-p">Prezzo medio a notte <output data-v="p" for="m-p"></output></label><input id="m-p" data-k="p" type="range" min="50" max="600" step="10" value="150"></div>
-          <div class="comando"><label for="m-o">Occupazione <output data-v="o" for="m-o"></output></label><input id="m-o" data-k="o" type="range" min="20" max="95" step="5" value="60"><p class="aiuto">Quante notti su cento sono prenotate.</p></div>
-          <p class="conto-ipotesi">Ipotesi: il 15% delle prenotazioni passa alla tua pagina, riempiamo il 10% delle notti vuote, annunci da 3 € al giorno per unità. Già tolti il 3% del pagamento online e il 20% di costo per ogni notte in più. I prezzi migliori non li contiamo. <a href="commissioni-airbnb-booking.html#numeri">Tutte le ipotesi</a>.</p>
-        </div>
-        <div class="conto-esito">
-          <div class="riga"><div class="lbl">Oggi lasci alle piattaforme, in un anno</div><div class="num" data-o="oggi"></div></div>
-          <div class="riga"><div class="lbl">Con noi ne recuperi, al netto di tutto</div><div class="num grande" data-o="resta"></div><p class="pereuro" data-o="pereuro"></p></div>
-          <div class="riga"><div class="lbl">Ci paghi, in un anno</div><div class="num" data-o="piano"></div><p class="nota" data-o="primoanno"></p></div>
-          <div class="riga conto-azioni"><button class="btn btn-vino" type="button" data-verifica>Verifichiamolo sulla tua casa</button><a class="link-freccia" href="commissioni-airbnb-booking.html#anno">Cambia le ipotesi</a></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section id="chi-ce-dietro" hidden></section>
 <section class="contatti" id="contatti" aria-labelledby="contatti-titolo">
   <div class="wrap">
     <h2 id="contatti-titolo">Raccontaci la tua casa.</h2>
