@@ -199,8 +199,9 @@
       var pl = function (x) { return f * x; }, dr = function (x) { return d * x + A; };
       var be = f > d ? A / (f - d) : Infinity;
       var W = Math.max(300, Math.round(svg.parentNode.clientWidth - 2)), small = W < 480;
-      var H = Math.round(Math.min(440, Math.max(280, W * 0.6)));
-      var m = { l: small ? 54 : 66, r: small ? 12 : 22, t: 30, b: 52 };
+      /* su telefono le due righe della soglia stanno in una fascia sopra il grafico (32 px in piu), cosi non toccano le etichette delle linee */
+      var H = Math.round(Math.min(440, Math.max(280, W * 0.6))) + (small ? 32 : 0);
+      var m = { l: small ? 54 : 66, r: small ? 12 : 22, t: small ? 62 : 30, b: 52 };
       var ymax = Math.max(pl(X1), dr(X1)) * 1.1, step = nice(ymax / 5); ymax = Math.ceil(ymax / step) * step;
       var sx = function (x) { return m.l + (x - X0) / (X1 - X0) * (W - m.l - m.r); };
       var sy = function (y) { return H - m.b - y / ymax * (H - m.t - m.b); };
@@ -212,15 +213,18 @@
       o.push(T(W - m.r, H - 8, "Valore dell'intero soggiorno", 'class="titolo-asse" text-anchor="end"'));
       if (be < X1) { var a = Math.max(be, X0); o.push('<polygon points="' + sx(a) + "," + sy(pl(a)) + " " + sx(X1) + "," + sy(pl(X1)) + " " + sx(X1) + "," + sy(dr(X1)) + " " + sx(a) + "," + sy(dr(a)) + '" fill="' + C_DIR + '" fill-opacity=".13"/>'); }
       if (be > X0 && be < X1) {
-        o.push('<line x1="' + sx(be) + '" x2="' + sx(be) + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="' + C_SOGLIA + '" stroke-width="1.5" stroke-dasharray="5 4"/>');
-        o.push(T(sx(be) + 6, m.t + 12, "conviene da " + euro(Math.round(be / 10) * 10), 'style="fill:' + C_SOGLIA_TESTO + ';font-weight:600"'));
-        o.push(T(sx(be) + 6, m.t + 28, "più i " + FISSO + " € al mese del piano", 'style="fill:' + C_SOGLIA_TESTO + ';font-weight:500;font-size:12px"'));
+        /* soglia nella meta destra: le etichette vanno a sinistra della linea, cosi non escono dal grafico */
+        var sxb = sx(be), dx = sxb > W * 0.55 ? -6 : 6, anc = dx < 0 ? 'text-anchor="end" ' : "";
+        var y1s = small ? 20 : m.t, ys = small ? 31 : m.t + 12;
+        o.push('<line x1="' + sxb + '" x2="' + sxb + '" y1="' + y1s + '" y2="' + (H - m.b) + '" stroke="' + C_SOGLIA + '" stroke-width="1.5" stroke-dasharray="5 4"/>');
+        o.push(T(sxb + dx, ys, "conviene da " + euro(Math.round(be / 10) * 10), anc + 'style="fill:' + C_SOGLIA_TESTO + ';font-weight:600"'));
+        o.push(T(sxb + dx, ys + 16, "più i " + FISSO + " € al mese del piano", anc + 'style="fill:' + C_SOGLIA_TESTO + ';font-weight:500;font-size:12px"'));
       }
       o.push('<line x1="' + sx(X0) + '" y1="' + sy(pl(X0)) + '" x2="' + sx(X1) + '" y2="' + sy(pl(X1)) + '" stroke="' + C_PIATT + '" stroke-width="3.5" stroke-linecap="round"/>');
       o.push('<line x1="' + sx(X0) + '" y1="' + sy(dr(X0)) + '" x2="' + sx(X1) + '" y2="' + sy(dr(X1)) + '" stroke="' + C_DIR + '" stroke-width="3.5" stroke-linecap="round"/>');
       var xn = sx(v) > W * 0.6 ? X0 + (X1 - X0) * 0.45 : X1, up = pl(xn) >= dr(xn);
-      o.push(T(sx(xn) - 2, sy(pl(xn)) + (up ? -10 : 20), "Piattaforma", 'text-anchor="end" style="fill:' + C_PIATT + ';font-weight:600;font-size:13px"'));
-      o.push(T(sx(xn) - 2, sy(dr(xn)) + (up ? 22 : -10), "Dalla tua pagina", 'text-anchor="end" style="fill:' + C_DIR + ';font-weight:600;font-size:13px"'));
+      o.push(T(sx(xn) - 2, sy(pl(xn)) + (up ? -10 : 20), "Piattaforma", 'class="et-piatt" text-anchor="end" style="fill:' + C_PIATT + ';font-weight:600;font-size:13px"'));
+      o.push(T(sx(xn) - 2, sy(dr(xn)) + (up ? 22 : -10), "Dalla tua pagina", 'class="et-dir" text-anchor="end" style="fill:' + C_DIR + ';font-weight:600;font-size:13px"'));
       var cx = sx(v), left = small ? cx > 95 : cx > W * 0.72, edge = cx > W * 0.72, pv = pl(v), dv = dr(v), pUp = pv >= dv;
       o.push('<line x1="' + cx + '" x2="' + cx + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="#675E59" stroke-opacity=".45" stroke-width="1"/>');
       o.push('<circle cx="' + cx + '" cy="' + sy(pv) + '" r="6.5" fill="' + C_PIATT + '" stroke="#fff" stroke-width="2"/>');
@@ -228,6 +232,26 @@
       o.push(T(left ? cx - 11 : cx + 11, sy(pv) + (pUp ? -10 : 20), euro(pv), (left ? 'text-anchor="end" ' : "") + 'style="fill:' + C_PIATT + ';font-weight:600;font-size:13px"'));
       o.push(T(edge ? cx - 11 : cx + 11, sy(dv) + (pUp ? 22 : -10), euro(dv), (edge ? 'text-anchor="end" ' : "") + 'style="fill:' + C_DIR + ';font-weight:600;font-size:13px"'));
       svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.innerHTML = o.join("");
+      /* le etichette delle due linee: mai attraversate da una linea, mai sopra un'altra scritta.
+         Misurata la larghezza del testo, l'etichetta va sopra la sua linea (al punto piu alto) o sotto
+         (al punto piu basso): prima dal lato di sempre, poi, se tocca qualcosa, dall'altro. */
+      var valore = function (px) { return X0 + (px - m.l) / (W - m.l - m.r) * (X1 - X0); };
+      var testi = $$("text", svg);
+      var libera = function (t, xl, xr) {
+        var a = t.getBBox();
+        var attraversa = function (fn) { var y1 = sy(fn(valore(xl))), y2 = sy(fn(valore(xr))); return Math.max(y1, y2) + 1.75 >= a.y && Math.min(y1, y2) - 1.75 <= a.y + a.height; };
+        if (attraversa(pl) || attraversa(dr)) return false;
+        return testi.every(function (u) { if (u === t) return true; var b = u.getBBox(); return a.x >= b.x + b.width || b.x >= a.x + a.width || a.y >= b.y + b.height || b.y >= a.y + a.height; });
+      };
+      [[".et-piatt", pl, up], [".et-dir", dr, !up]].forEach(function (e) {
+        var t = $(e[0], svg); if (!t || !t.getComputedTextLength) return;
+        var xr = sx(xn) - 2, xl = xr - t.getComputedTextLength();
+        var yl = sy(e[1](valore(xl))), yr = sy(e[1](valore(xr)));
+        var sopra = (Math.min(yl, yr) - 10).toFixed(1), sotto = (Math.max(yl, yr) + 16).toFixed(1);
+        var prima = e[2] ? sopra : sotto, poi = e[2] ? sotto : sopra;
+        t.setAttribute("y", prima);
+        if (!libera(t, xl, xr)) { t.setAttribute("y", poi); if (!libera(t, xl, xr)) t.setAttribute("y", prima); }
+      });
       var fee = Math.round(pv), pay = Math.round(v * PAY / 100), our = Math.round(v * PCT / 100), dir = pay + A + our, diff = fee - dir;
       $("#x-comm").textContent = euro(fee); $("#x-resta-a").textContent = euro(v - fee);
       $("#x-pag").textContent = euro(pay); $("#x-ann").textContent = euro(A); $("#x-noi").textContent = euro(our); $("#x-resta-b").textContent = euro(v - dir);
