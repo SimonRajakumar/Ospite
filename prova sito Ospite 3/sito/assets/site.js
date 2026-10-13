@@ -8,6 +8,13 @@
   var PAY = 3;                /* costo del pagamento online, % stimata */
   var COMM = 15.5;            /* commissione Airbnb, % */
   var COSTO_NOTTE = 20;       /* costo di una notte in più (pulizie, consumi), % del prezzo */
+  /* ipotesi fisse del conto rapido in home: se cambiano, cambia anche il testo "Ipotesi: ..." in index.html
+     e i valori iniziali dei cursori in commissioni-airbnb-booking.html (vedi la tabella nel README) */
+  var QUOTA_DIRETTA = 15;     /* % delle prenotazioni che passa alla pagina diretta */
+  var NOTTI_RIEMPITE = 10;    /* % delle notti vuote che si riempiono */
+  var ANNUNCI_UNITA = 3;      /* annunci consigliati, euro al giorno per unità */
+  /* asse orizzontale del grafico: deve corrispondere a min e max del cursore #r-sogg */
+  var GRAFICO_DA = 200, GRAFICO_A = 4000;
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -127,11 +134,11 @@
     var inp = function (k) { return $("[data-k=" + k + "]", box); };
     var out = function (k, t) { var e = $("[data-o=" + k + "]", box); if (e) e.textContent = t; };
     function draw() {
-      var u = Math.max(0, Math.min(60, val(inp("u")))), p = val(inp("p")), o = Math.max(0, Math.min(100, val(inp("o"))));
+      var u = Math.max(0, val(inp("u"))), p = val(inp("p")), o = Math.max(0, Math.min(100, val(inp("o"))));
       var i = { u: u, p: p, o: o,
-        s: mini ? 15 : val(inp("s")),
-        f: mini ? 10 : val(inp("f")),
-        a: mini ? 3 * u : val(inp("a")) };
+        s: mini ? QUOTA_DIRETTA : val(inp("s")),
+        f: mini ? NOTTI_RIEMPITE : val(inp("f")),
+        a: mini ? ANNUNCI_UNITA * u : val(inp("a")) };
       ["u", "p", "o", "s", "f", "a"].forEach(function (k) {
         var e = $("[data-v=" + k + "]", box); if (!e) return;
         e.textContent = k === "u" ? fmt(i.u) : (k === "p" || k === "a" ? euro(i[k]) : num(i[k], 0) + "%");
@@ -143,7 +150,7 @@
       out("pereuro", r.piano > 0 && r.resta > 0 ? "Per ogni euro che ci paghi, te ne restano " + num(r.perEuro, 1) + "." : "Con questi numeri non ti conviene: te lo diciamo prima.");
       out("primoanno", "Il primo anno, con la prova a metà prezzo: " + euro(r.primoAnno) + ".");
       if (!mini) {
-        var of = function (k, t) { var e = $("[data-out-full=" + k + "]"); if (e) e.textContent = t; };
+        var of = function (k, t) { var e = $("[data-out-full=" + k + "]", box.closest("section") || document); if (e) e.textContent = t; };
         of("fonte1", euro(r.evitate - r.pag)); of("fonte2", euro(r.nuovoNetto)); of("notti", fmt(r.notti));
         of("costi", "Già tolti dal totale: annunci " + euro(r.annunci) + " e il nostro piano " + euro(r.piano) + ".");
       }
@@ -189,7 +196,7 @@
     function draw() {
       var f = stato.piatt * (cIva.checked ? 1.22 : 1) / 100, d = (PAY + PCT) / 100, A = +rAds.value, v = +rStay.value;
       $("#o-altra").textContent = num(+rAltra.value) + "%"; $("#o-sogg").textContent = euro(v); $("#o-ann").textContent = euro(A); $("#o-piatt").textContent = num(f * 100) + "%";
-      var X0 = 200, X1 = 4000;
+      var X0 = GRAFICO_DA, X1 = GRAFICO_A;
       var pl = function (x) { return f * x; }, dr = function (x) { return d * x + A; };
       var be = f > d ? A / (f - d) : Infinity;
       var W = Math.max(300, Math.round(svg.parentNode.clientWidth - 2)), small = W < 480;
@@ -229,7 +236,10 @@
       else { esito.classList.add("no"); esito.textContent = "Qui la piattaforma costa meno: " + euro(-diff) + " di differenza." + (isFinite(be) ? " Conviene da " + euro(Math.round(be / 10) * 10) + " in su." : ""); }
     }
     draw();
-    if ("ResizeObserver" in window) new ResizeObserver(function () { draw(); }).observe(svg.parentNode); else window.addEventListener("resize", draw);
+    /* ridisegna solo se cambia la larghezza (ridisegnare cambia l'altezza, che non deve far ripartire il ciclo) */
+    var largo = svg.parentNode.clientWidth;
+    var seCambia = function () { var w = svg.parentNode.clientWidth; if (w !== largo) { largo = w; draw(); } };
+    if ("ResizeObserver" in window) new ResizeObserver(seCambia).observe(svg.parentNode); else window.addEventListener("resize", seCambia);
   }
 
   /* ---------- fa per te? ---------- */
