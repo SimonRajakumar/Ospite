@@ -12,7 +12,7 @@ Sito statico in italiano per un servizio a chi affitta case e appartamenti a Tor
 | `commissioni-airbnb-booking.html` | "Il conto": confronto per una prenotazione (grafico rosso/blu) e conto su un anno con tutte le ipotesi modificabili |
 | `come-lavoriamo.html` | Primi sette giorni, ogni settimana, la prova di 60 giorni, chi paga cosa, prezzi, questionario "Fa per te?" |
 | `prenotazioni-dirette-torino.html` | Pagina locale (Torino e Piemonte) |
-| `domande.html` | Domande frequenti (con dati strutturati) e glossario "tocca una parola" |
+| `domande.html` | Domande frequenti e glossario "tocca una parola" (niente dati strutturati FAQ: Google non li mostra più per siti come questo, e andavano tenuti allineati a mano) |
 | `privacy.html` | Informativa per il modulo. **Da completare** con i dati del titolare |
 | `grazie.html` | Pagina dopo l'invio del modulo |
 | `404.html` | Pagina per gli indirizzi che non esistono (percorsi assoluti, funziona a qualsiasi profondità) |
