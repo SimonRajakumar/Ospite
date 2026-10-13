@@ -251,12 +251,12 @@
       { q: "Da dove arrivano oggi le prenotazioni?", k: "canale", o: [["Solo dalle piattaforme", "piatt"], ["Piattaforme e qualche diretta", "misto"], ["Soprattutto dirette", "dirette"]] },
       { q: "Hai un sito dove si può prenotare?", k: "sito", o: [["No", "no"], ["Ho un sito, ma non si prenota", "nopren"], ["Sì", "si"]] }
     ];
-    var step = 0, ans = {}, lab = {}, barra = 0, toccato = false;
+    var step = 0, ans = {}, lab = {}, riempita = 0, toccato = false;
     var mk = function (tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; };
     var renderQ = function () {
       var it = Q[step]; quiz.innerHTML = "";
       /* la barra parte da zero e si riempie a ogni risposta data */
-      var bar = mk("div", "q-barra"), fill = mk("span"); fill.style.width = barra + "%"; bar.appendChild(fill); quiz.appendChild(bar);
+      var bar = mk("div", "q-barra"), fill = mk("span"); fill.style.width = riempita + "%"; bar.appendChild(fill); quiz.appendChild(bar);
       quiz.appendChild(mk("p", "q-conta", "Domanda " + (step + 1) + " di " + Q.length));
       var tit = mk("p", "q-titolo", it.q); tit.tabIndex = -1; quiz.appendChild(tit);
       var ops = mk("div", "q-opzioni");
@@ -268,8 +268,8 @@
       });
       quiz.appendChild(ops);
       if (step > 0) { var bk = mk("button", "q-indietro", "Indietro"); bk.type = "button"; bk.addEventListener("click", function () { step--; toccato = true; renderQ(); }); quiz.appendChild(bk); }
-      barra = step / Q.length * 100;
-      requestAnimationFrame(function () { fill.style.width = barra + "%"; });
+      riempita = step / Q.length * 100;
+      requestAnimationFrame(function () { fill.style.width = riempita + "%"; });
       /* dopo una risposta il fuoco va sulla nuova domanda (non al primo caricamento della pagina) */
       if (toccato) tit.focus({ preventScroll: true });
     };
@@ -290,7 +290,7 @@
         precompila({ unita: { "1": "1", "2-5": "Da 2 a 5", "6-10": "Da 6 a 10", "10+": "Più di 10" }[ans.u],
           msg: "Dal questionario: unità " + lab.u + "; notti vuote: " + lab.vuote + "; prenotazioni oggi: " + lab.canale + "; sito: " + lab.sito + "." });
       });
-      var again = mk("button", "q-indietro", "Ricomincia"); again.type = "button"; again.addEventListener("click", function () { step = 0; ans = {}; lab = {}; barra = 0; renderQ(); });
+      var again = mk("button", "q-indietro", "Ricomincia"); again.type = "button"; again.addEventListener("click", function () { step = 0; ans = {}; lab = {}; riempita = 0; renderQ(); });
       acts.appendChild(a); acts.appendChild(again); box.appendChild(acts); quiz.appendChild(box);
       h.focus({ preventScroll: true });
     };
