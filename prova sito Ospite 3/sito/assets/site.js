@@ -13,6 +13,11 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hasIO = "IntersectionObserver" in window;
+  /* lettori di schermo: una sola frase, detta quando il cursore si ferma (non a ogni passo) */
+  var annunciatore = function (dove) {
+    var p = document.createElement("p"), t = null; p.className = "sr-solo"; p.setAttribute("aria-live", "polite"); dove.appendChild(p);
+    return function (testo) { clearTimeout(t); t = setTimeout(function () { p.textContent = testo; }, 700); };
+  };
   var fmt = function (n) { n = Math.round(n); var t = Math.abs(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); return (n < 0 ? "−" : "") + t; };
   var euro = function (n) { return fmt(n) + " €"; };
   var num = function (n, d) { return (Math.round(n * Math.pow(10, d || 1)) / Math.pow(10, d || 1)).toString().replace(".", ","); };
@@ -21,8 +26,15 @@
   /* ---------- menu su telefono ---------- */
   var mbtn = $(".menu-btn"), mm = $(".menu-mobile");
   if (mbtn && mm) {
-    mbtn.addEventListener("click", function () { var open = mm.classList.toggle("aperto"); mbtn.setAttribute("aria-expanded", open); });
-    $$("a", mm).forEach(function (a) { a.addEventListener("click", function () { mm.classList.remove("aperto"); mbtn.setAttribute("aria-expanded", "false"); }); });
+    var chiudiMenu = function () { mm.classList.remove("aperto"); mbtn.setAttribute("aria-expanded", "false"); mbtn.textContent = "Menu"; };
+    mbtn.addEventListener("click", function () {
+      var open = mm.classList.toggle("aperto"); mbtn.setAttribute("aria-expanded", open); mbtn.textContent = open ? "Chiudi" : "Menu";
+    });
+    $$("a", mm).forEach(function (a) { a.addEventListener("click", chiudiMenu); });
+    /* Esc chiude il menu e riporta il fuoco sul pulsante */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && mm.classList.contains("aperto")) { chiudiMenu(); mbtn.focus(); }
+    });
   }
 
   /* ---------- WhatsApp: appare solo se il numero c'e ---------- */
@@ -143,7 +155,13 @@
       if (!ultimo) return;
       precompila({ unita: unitaEtichetta(ultimo.u), msg: "Ho fatto il conto sul sito: " + ultimo.u + " unità, prezzo medio " + euro(ultimo.p) + " a notte, occupazione " + ultimo.o + "%." });
     });
-    $$("input", box).forEach(function (e) { e.addEventListener("input", draw); e.addEventListener("change", draw); });
+    var dici = annunciatore(box);
+    var cambia = function () {
+      draw();
+      var resta = $("[data-o=resta]", box);
+      dici(resta.previousElementSibling.textContent + ": " + resta.textContent + ". " + $("[data-o=pereuro]", box).textContent);
+    };
+    $$("input", box).forEach(function (e) { e.addEventListener("input", cambia); e.addEventListener("change", cambia); });
     draw();
   });
 
@@ -154,16 +172,18 @@
     var segs = $$(".segmenti button", calc);
     var rAltra = $("#r-altra"), wrapAltra = $("#c-altra"), cIva = $("#c-iva"), rStay = $("#r-sogg"), rAds = $("#r-ann");
     var svg = $("#grafico-svg"), esito = $("#esito");
-    var C_PIATT = "#D3362D", C_DIR = "#2457E6", C_SOGLIA = "#A27B3F";
+    var C_PIATT = "#D3362D", C_DIR = "#2457E6", C_SOGLIA = "#A27B3F", C_SOGLIA_TESTO = "#8A6A35"; /* testo: 5:1 su bianco */
+    var diciCalc = annunciatore(calc);
+    var ridisegna = function () { draw(); diciCalc(esito.textContent); };
     segs.forEach(function (b) {
       b.addEventListener("click", function () {
         segs.forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
         var v = b.getAttribute("data-val"); wrapAltra.hidden = v !== "altra";
-        stato.piatt = v === "altra" ? +rAltra.value : +v; draw();
+        stato.piatt = v === "altra" ? +rAltra.value : +v; ridisegna();
       });
     });
-    rAltra.addEventListener("input", function () { stato.piatt = +rAltra.value; draw(); });
-    [cIva, rStay, rAds].forEach(function (el) { el.addEventListener("input", draw); el.addEventListener("change", draw); });
+    rAltra.addEventListener("input", function () { stato.piatt = +rAltra.value; ridisegna(); });
+    [cIva, rStay, rAds].forEach(function (el) { el.addEventListener("input", ridisegna); el.addEventListener("change", ridisegna); });
     var nice = function (raw) { var p = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; };
     var T = function (x, y, txt, attrs) { return '<text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" ' + (attrs || "") + ">" + txt + "</text>"; };
     function draw() {
@@ -187,8 +207,8 @@
       if (be < X1) { var a = Math.max(be, X0); o.push('<polygon points="' + sx(a) + "," + sy(pl(a)) + " " + sx(X1) + "," + sy(pl(X1)) + " " + sx(X1) + "," + sy(dr(X1)) + " " + sx(a) + "," + sy(dr(a)) + '" fill="' + C_DIR + '" fill-opacity=".13"/>'); }
       if (be > X0 && be < X1) {
         o.push('<line x1="' + sx(be) + '" x2="' + sx(be) + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="' + C_SOGLIA + '" stroke-width="1.5" stroke-dasharray="5 4"/>');
-        o.push(T(sx(be) + 6, m.t + 12, "conviene da " + euro(Math.round(be / 10) * 10), 'style="fill:' + C_SOGLIA + ';font-weight:600"'));
-        o.push(T(sx(be) + 6, m.t + 28, "più i " + FISSO + " € al mese del piano", 'style="fill:' + C_SOGLIA + ';font-weight:500;font-size:12px"'));
+        o.push(T(sx(be) + 6, m.t + 12, "conviene da " + euro(Math.round(be / 10) * 10), 'style="fill:' + C_SOGLIA_TESTO + ';font-weight:600"'));
+        o.push(T(sx(be) + 6, m.t + 28, "più i " + FISSO + " € al mese del piano", 'style="fill:' + C_SOGLIA_TESTO + ';font-weight:500;font-size:12px"'));
       }
       o.push('<line x1="' + sx(X0) + '" y1="' + sy(pl(X0)) + '" x2="' + sx(X1) + '" y2="' + sy(pl(X1)) + '" stroke="' + C_PIATT + '" stroke-width="3.5" stroke-linecap="round"/>');
       o.push('<line x1="' + sx(X0) + '" y1="' + sy(dr(X0)) + '" x2="' + sx(X1) + '" y2="' + sy(dr(X1)) + '" stroke="' + C_DIR + '" stroke-width="3.5" stroke-linecap="round"/>');

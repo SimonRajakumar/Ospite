@@ -31,11 +31,11 @@
 <header class="testata">
   <div class="wrap testata-riga">
     <a class="marchio" href="index.html">Ospite</a>
-    <nav class="menu" aria-label="Pagine"><a href="commissioni-airbnb-booking.html" aria-current="page">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a></nav>
+    <nav class="menu" aria-label="Menu principale"><a href="commissioni-airbnb-booking.html" aria-current="page">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a></nav>
     <a class="btn btn-vino btn-piccolo solo-desk" href="#contatti">Parliamone</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-mobile">Menu</button>
   </div>
-  <nav class="menu-mobile" id="menu-mobile" aria-label="Pagine"><a href="commissioni-airbnb-booking.html" aria-current="page">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a><a href="#contatti">Parliamone</a></nav>
+  <nav class="menu-mobile" id="menu-mobile" aria-label="Menu su telefono"><a href="commissioni-airbnb-booking.html" aria-current="page">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a><a href="#contatti">Parliamone</a></nav>
 </header>
 <main id="contenuto">
   <section class="apertura">
@@ -82,7 +82,7 @@
             <svg id="grafico-svg" role="img" aria-label="Quanto costa un soggiorno sulla piattaforma e dalla tua pagina, al variare del suo valore"></svg>
             <figcaption class="legenda"><span style="--c:#D3362D">Piattaforma: la commissione</span><span style="--c:#2457E6">Dalla tua pagina: pagamento, annunci, nostro 1,5%</span><span class="area" style="--c:rgba(36,87,230,.18)">Quello che ti resta in più</span></figcaption>
           </figure>
-          <div class="ricevuta" aria-live="polite">
+          <div class="ricevuta">
             <div class="colonna">
               <p class="col-titolo" style="--c:#D3362D">Sulla piattaforma</p>
               <dl><dt>Commissione</dt><dd id="x-comm"></dd><dt class="tot">Ti restano</dt><dd class="tot" id="x-resta-a"></dd></dl>
@@ -111,14 +111,14 @@
           <div class="comando"><label for="a-f">Notti vuote che riempiamo <output data-v="f" for="a-f"></output></label><input id="a-f" data-k="f" type="range" min="0" max="40" step="5" value="10"><p class="aiuto">Il numero più incerto: è quello che la prova misura.</p></div>
           <div class="comando"><label for="a-a">Quanto spendi in annunci al giorno, in tutto <output data-v="a" for="a-a"></output></label><input id="a-a" data-k="a" type="range" min="0" max="80" step="1" value="9"><p class="aiuto">Li paghi tu, direttamente a Meta e Google. Consigliamo 3 € al giorno per unità.</p></div>
         </div>
-        <div class="conto-esito" aria-live="polite">
+        <div class="conto-esito">
           <div class="riga"><div class="lbl">Oggi lasci alle piattaforme, in un anno</div><div class="num" data-o="oggi"></div></div>
           <div class="riga"><div class="lbl">Con noi ne recuperi, al netto di tutto</div><div class="num grande" data-o="resta"></div><p class="pereuro" data-o="pereuro"></p></div>
           <div class="riga"><div class="lbl">Ci paghi, in un anno</div><div class="num" data-o="piano"></div><p class="nota" data-o="primoanno"></p></div>
           <div class="riga conto-azioni"><button class="btn btn-vino" type="button" data-verifica>Verifichiamolo sulla tua casa</button></div>
         </div>
       </div>
-      <div class="fonti3" aria-live="polite">
+      <div class="fonti3">
         <div class="fonte3"><p class="titolo">Commissioni che non paghi più</p><p class="cifra" data-out-full="fonte1"></p><p class="certezza">Solido: dipende solo da quante prenotazioni passano alla tua pagina. Già tolto il pagamento online.</p></div>
         <div class="fonte3"><p class="titolo">Notti vuote riempite</p><p class="cifra" data-out-full="fonte2"></p><p class="certezza"><span data-out-full="notti"></span> notti, al netto dei costi. Il più incerto: è quello che la prova misura.</p></div>
         <div class="fonte3"><p class="titolo">Prezzi migliori</p><p class="cifra">non contato</p><p class="certezza">Non lo mettiamo nel conto: se arriva, è in più.</p></div>
@@ -183,7 +183,7 @@
 <footer class="piede">
   <div class="wrap piede-griglia">
     <a class="marchio" href="index.html">Ospite</a>
-    <nav aria-label="Pagine"><a href="commissioni-airbnb-booking.html">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a><a href="prenotazioni-dirette-torino.html">Torino</a><a href="privacy.html">Privacy</a></nav>
+    <nav aria-label="Piè di pagina"><a href="commissioni-airbnb-booking.html">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a><a href="prenotazioni-dirette-torino.html">Torino</a><a href="privacy.html">Privacy</a></nav>
     <span>© 2026 Ospite, Torino</span>
   </div>
 </footer>

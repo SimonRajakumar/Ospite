@@ -12,7 +12,7 @@
   --testo2:#675E59;
   --bordeaux:#6E1F2B;
   --bordeaux2:#8E2C3A;
-  --ottone:#B08D57;
+  --ottone:#B08D57;  /* solo linee e bordi su fondo chiaro: come testo su avorio non si legge (2,7:1) */
   --display:"Bodoni Moda", "Bodoni 72", Didot, Georgia, serif;
   --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --pad:clamp(1.25rem, 5vw, 3rem);
@@ -462,3 +462,15 @@ h2{font-size:clamp(2.1rem, 5vw, 3.5rem)}
 /* il riquadro dei risultati non si allunga, e sul conto completo resta in vista mentre si spostano i cursori */
 .conto-esito{align-self:start}
 @media (min-width:52rem){[data-conto="full"] .conto-esito{position:sticky;top:6rem}}
+
+/* =====================================================================
+   Fase 2 (ott 2026): accessibilita
+   ===================================================================== */
+/* testo per i soli lettori di schermo */
+.sr-solo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* bersagli di almeno 44 px */
+.marchio{padding-block:.2rem;margin-block:-.2rem}  /* area cliccabile piu alta, stessa impaginazione */
+.btn-piccolo{padding-block:.86rem}
+.segmenti button{min-height:2.75rem}
+.spunta{min-height:2.75rem}
+.q-indietro{min-height:2.75rem}
