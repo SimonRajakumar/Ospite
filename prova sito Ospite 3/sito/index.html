@@ -204,18 +204,19 @@
   <div class="wrap">
     <h2 id="contatti-titolo">Raccontaci la tua casa.</h2>
     <p>Due righe bastano. Di solito rispondiamo entro un giorno lavorativo.</p>
-    <form class="modulo" name="contatto" method="POST" action="/grazie.html" data-netlify="true" netlify-honeypot="trappola" novalidate>
+    <form class="modulo" name="contatto" method="POST" action="/grazie.html" data-netlify="true" netlify-honeypot="trappola">
       <input type="hidden" name="form-name" value="contatto">
       <p hidden><label>Non compilare questo campo <input name="trappola"></label></p>
       <div><label for="f-nome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required></div>
       <div class="riga2">
-        <div><label for="f-tel">Telefono</label><input id="f-tel" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Es. 333 123 4567"></div>
-        <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="nome@esempio.it"></div>
+        <div><label for="f-tel">Telefono</label><input id="f-tel" name="telefono" type="tel" aria-describedby="f-recapito-aiuto" inputmode="tel" autocomplete="tel" placeholder="Es. 333 123 4567"></div>
+        <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" aria-describedby="f-recapito-aiuto" autocomplete="email" placeholder="nome@esempio.it"></div>
       </div>
       <p class="aiuto" id="f-recapito-aiuto">Basta uno dei due, scritto come preferisci.</p>
+      <noscript><p class="aiuto">Lasciaci almeno uno dei due, telefono o email: senza, non possiamo risponderti.</p></noscript>
       <div class="riga2">
         <div><label for="f-unita">Quante unità</label><select id="f-unita" name="unita"><option>1</option><option>Da 2 a 5</option><option>Da 6 a 10</option><option>Più di 10</option></select></div>
-        <div><label for="f-dove">Dove</label><input id="f-dove" name="dove" autocomplete="address-level2" placeholder="Es. Torino, Crocetta"><p class="aiuto">Quartiere o comune: non serve l'indirizzo.</p></div>
+        <div><label for="f-dove">Dove</label><input id="f-dove" name="dove" autocomplete="address-level2" aria-describedby="f-dove-aiuto" placeholder="Es. Torino, Crocetta"><p class="aiuto" id="f-dove-aiuto">Quartiere o comune: non serve l'indirizzo.</p></div>
       </div>
       <div><label for="f-msg">Altro da dirci (facoltativo)</label><textarea id="f-msg" name="messaggio"></textarea></div>
       <p class="modulo-errore" id="f-errore" role="alert" hidden>Lasciaci un telefono o un'email, così possiamo risponderti.</p>

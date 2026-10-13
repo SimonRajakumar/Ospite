@@ -64,15 +64,26 @@
     }
   }
 
-  /* ---------- il modulo: nome e almeno un recapito ---------- */
+  /* ---------- il modulo: nome e almeno un recapito ----------
+     Senza JavaScript il browser controlla da solo il nome (required) e il formato dell'email.
+     Con JavaScript il controllo lo facciamo noi, con messaggi in italiano. */
   var modulo = $("form.modulo");
   if (modulo) {
+    modulo.noValidate = true;
+    var nome = $("#f-nome"), tel = $("#f-tel"), em = $("#f-email"), err = $("#f-errore");
+    /* l'errore si collega al campo sbagliato (aria-invalid + aria-describedby), poi si scollega */
+    var segna = function (c, on) {
+      var ids = (c.getAttribute("aria-describedby") || "").split(" ").filter(function (x) { return x && x !== "f-errore"; });
+      if (on) { ids.push("f-errore"); c.setAttribute("aria-invalid", "true"); } else c.removeAttribute("aria-invalid");
+      if (ids.length) c.setAttribute("aria-describedby", ids.join(" ")); else c.removeAttribute("aria-describedby");
+    };
     modulo.addEventListener("submit", function (e) {
-      var nome = $("#f-nome"), tel = $("#f-tel"), em = $("#f-email"), err = $("#f-errore"), msg = "", campo = null;
-      if (!nome.value.trim()) { msg = "Scrivici il tuo nome."; campo = nome; }
-      else if (!tel.value.trim() && !em.value.trim()) { msg = "Lasciaci un telefono o un'email, così possiamo risponderti."; campo = tel; }
-      else if (em.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { msg = "L'email non sembra completa: controllala."; campo = em; }
-      if (msg) { e.preventDefault(); err.textContent = msg; err.hidden = false; campo.focus(); }
+      var msg = "", sbagliati = [];
+      if (!nome.value.trim()) { msg = "Scrivici il tuo nome."; sbagliati = [nome]; }
+      else if (!tel.value.trim() && !em.value.trim()) { msg = "Lasciaci un telefono o un'email, così possiamo risponderti."; sbagliati = [tel, em]; }
+      else if (em.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { msg = "L'email non sembra completa: controllala."; sbagliati = [em]; }
+      [nome, tel, em].forEach(function (c) { segna(c, sbagliati.indexOf(c) > -1); });
+      if (msg) { e.preventDefault(); err.textContent = msg; err.hidden = false; sbagliati[0].focus(); }
       else { err.hidden = true; }
     });
   }
