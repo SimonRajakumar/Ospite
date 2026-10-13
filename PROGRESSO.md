@@ -93,7 +93,30 @@ Left as it was (pre-existing, outside the request): at extreme settings (a 200 �
 
 `screenshot-parte-B/` stays local. It is listed in `.git/info/exclude`, which is never committed, so it is not in the repo.
 
-## Phase 3: text proposals in TESTI-PROPOSTE.md (waiting)
+## Phase 3: text proposals in TESTI-PROPOSTE.md (round 1 written, 13 October 2026)
+
+Round 1 written in `TESTI-PROPOSTE.md`.
+- **Scope:** `index.html`, the calculators and the questionnaire in `site.js`, the wheel texts in `ruota.js`, `commissioni-airbnb-booking.html`.
+- **Findings:** C2, C8, I1, I2, I3, I5, I7, I8, I16, I17, I20.
+- **Not edited:** no page, script or image. Nothing is applied until Simon approves line by line.
+
+What is in it:
+- 97 numbered proposals (R1-01 to R1-97). Each gives the exact current text, the proposal and one line on why.
+- A table of the numbers used, all from the site's own model:
+  - 232,50 € against 45 € on a 1.500 € stay;
+  - 22,50 € for our 1,5%;
+  - 283,65 € with VAT;
+  - 95 € more per direct booking at 1.500 €;
+  - the 650 € threshold (70 € ÷ 11% = 636 €).
+- **Hero proposal measured on a throwaway copy** (not the real pages): the first button ends at 718 px at 360 px (today 724) and 729 px at 1280 px (today 732), with the 1.500 € example included.
+- **I1 example: two options.** A, two flats at 300 €/night, 60% (recommended); B, a villa at 500 €/night, 45%. Both have yearly figures. Honest note: with either, most of the estimated gain comes from the least certain assumption (C6).
+- **Questionnaire:** new question on stay value, with "non conviene" under 650 € and the arithmetic.
+- **I8:** one sentence for CIN, tourist tax and Alloggiati Web, used everywhere.
+- **In attesa, listed and not drafted:** every Lodgify line (5 of them also contain «senza commissioni»), the C6 cost labels, the I6 terms.
+- **C1 «Chi c'è dietro»:** described, not written.
+- **Checked:** every "Ora" quote matches the current pages; no banned or promise wording in any proposal.
+
+Next: Simon approves round 1 line by line; then round 2 after his "go".
 ## Phase 4: animations (waiting)
 
 ---
@@ -101,7 +124,11 @@ Left as it was (pre-existing, outside the request): at extreme settings (a 200 �
 ## What Simon must decide
 
 1. **Branch on GitHub:** decided. The work stays on `audit-2026-10` locally; the commits go to GitHub as `claude/nifty-rubin-ey0ew4`, the only branch this session can push to.
-2. **Next:** your "go" for Phase 3 (text proposals in `TESTI-PROPOSTE.md`). Not started.
+2. **Next:** approve or reject the round 1 proposals in `TESTI-PROPOSTE.md` (by ID), then "go" for round 2. Also open in round 1:
+   - Is the first call free? R1-10 and the button lines say «gratuita».
+   - Example option A or B (R1-22, R1-35).
+   - The R1-36 stopgap: delete «nel piano senza commissioni» before the Lodgify answer?
+   - Is anything set up in Lodgify for the tourist tax (R1-72)?
 3. **Still open from the audit:**
    - C2 wording: "senza commissioni" is still on 5 pages, plus the README launch list (item 10).
    - The share image `images/condividi.jpg` has "Per chi affitta", "annunci" and the price baked into the picture. If I2 or I3 change the wording, the image must be remade too.
