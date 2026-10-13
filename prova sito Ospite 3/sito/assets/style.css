@@ -67,18 +67,15 @@ h2{font-size:clamp(2.1rem, 5vw, 3.5rem)}
 /* ---------- viaggio (telefono) ---------- */
 .viaggio{background:var(--avorio)}
 .viaggio-griglia{margin-top:3rem;display:grid;gap:2rem}
-.viaggio-visuale{display:none}
 .viaggio-passi{list-style:none;margin:0;padding:0;counter-reset:passo}
 .passo{counter-increment:passo;padding-block:1.75rem;border-top:1px solid var(--linea)}
 .passo::before{content:counter(passo);display:block;font-family:var(--display);font-size:2.5rem;line-height:1;color:var(--bordeaux);margin-bottom:.5rem}
 .passo h3{font-size:1.75rem}
 .passo>p{margin-top:.6rem;color:var(--testo2);max-width:30rem}
-.passo-media{margin-top:1.5rem}
 .telefono{width:17rem;max-width:100%;aspect-ratio:9/18.5;border-radius:2.4rem;background:var(--nero);padding:.6rem;box-shadow:0 40px 70px -38px rgba(13,11,12,.55);margin-inline:auto;position:relative}
-.passo-media .telefono{width:15rem}
 .schermo{position:relative;height:100%;border-radius:1.9rem;overflow:hidden;background:#fff;color:var(--testo);font-size:.85rem;line-height:1.4}
 .vschermo{position:absolute;inset:0;opacity:0;transition:opacity .45s ease}
-.vschermo.on,.passo-media .vschermo{opacity:1}
+.vschermo.on{opacity:1}
 .annuncio{height:100%;background-size:cover;background-position:center;color:#fff;display:flex;flex-direction:column;justify-content:space-between;position:relative}
 .annuncio::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,11,12,.5) 0%,rgba(13,11,12,0) 26%,rgba(13,11,12,0) 50%,rgba(13,11,12,.85) 100%)}
 .annuncio>*{position:relative}
@@ -224,7 +221,6 @@ h2{font-size:clamp(2.1rem, 5vw, 3.5rem)}
   .viaggio-visuale .telefono{position:sticky;top:12vh}
   .passo{min-height:60vh;display:flex;flex-direction:column;justify-content:center;opacity:.38;transition:opacity .4s ease}
   .passo.on{opacity:1}
-  .passo-media{display:none}
   .tre{grid-template-columns:repeat(3,1fr)}
   .calcolo{grid-template-columns:20rem 1fr;gap:3rem}
   .piede-griglia{grid-template-columns:auto 1fr auto;align-items:center}
@@ -386,3 +382,11 @@ html:not(.js) .grafico,html:not(.js) .ricevuta{display:none}
 /* etichetta "Esempio" su tutti gli schermi del telefono, dove non copre il testo */
 .esempio-sotto{top:2.7rem}
 .esempio-basso{top:auto;bottom:1.2rem}
+
+/* =====================================================================
+   Fase 2, parte B: telefono
+   ===================================================================== */
+/* "Il viaggio": un solo telefono sopra i quattro passi (su desktop resta 17rem e fisso accanto) */
+@media (max-width:51.99rem){.viaggio-visuale .telefono{width:15rem}}
+/* la ruota sotto i pulsanti, piu piccola */
+@media (max-width:39.99rem){.ruota{width:min(100%,17.5rem)}}

@@ -52,16 +52,14 @@
     });
   }
 
-  /* ---------- il viaggio: lo schermo cambia con il passo ---------- */
+  /* ---------- il viaggio: lo schermo cambia con il passo ----------
+     Su desktop il telefono resta fermo accanto ai passi e cambia schermo. Su telefono c'e' un solo
+     telefono sopra i quattro passi, fermo sul primo schermo (l'annuncio). */
   var schermi = $$(".viaggio-visuale .vschermo"), passi = $$(".passo");
+  var suDesktop = window.matchMedia("(min-width: 52rem)");
   if (schermi.length && passi.length) {
-    passi.forEach(function (li, i) {
-      var box = $(".passo-media", li); if (!box || !schermi[i]) return;
-      var tel = document.createElement("div"); tel.className = "telefono"; tel.setAttribute("aria-hidden", "true");
-      var sch = document.createElement("div"); sch.className = "schermo";
-      sch.appendChild(schermi[i].cloneNode(true)); tel.appendChild(sch); box.appendChild(tel);
-    });
     var attiva = function (i) {
+      if (!suDesktop.matches) i = 0;
       schermi.forEach(function (s, k) { s.classList.toggle("on", k === i); });
       passi.forEach(function (s, k) { s.classList.toggle("on", k === i); });
     };
@@ -322,7 +320,9 @@
   /* ---------- barra su telefono ---------- */
   var barra = $(".barra-mobile");
   if (barra && hasIO) {
-    var top = $(".hero2") || $(".apertura"), fine = $(".contatti"), seen = { top: true, fine: false };
+    /* in home la barra compare quando il primo pulsante del titolo non e' sullo schermo (mai un tratto senza pulsante);
+       nelle altre pagine, dopo l'apertura */
+    var top = $(".hero2-azioni .btn") || $(".apertura"), fine = $(".contatti"), seen = { top: true, fine: false };
     var io3 = new IntersectionObserver(function (en) {
       en.forEach(function (e) { seen[e.target === top ? "top" : "fine"] = e.isIntersecting; });
       barra.classList.toggle("vista", !seen.top && !seen.fine);
