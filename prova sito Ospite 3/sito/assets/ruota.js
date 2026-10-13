@@ -51,6 +51,8 @@
     reach[b] = t;
   }
   var maxLen = Math.max.apply(null, reach);
+  /* distanza dal centro di ogni segmento, calcolata una volta sola (non a ogni fotogramma) */
+  segs.forEach(function (sg) { sg.k = Math.min(1, Math.hypot(sg.x1 - C, sg.y1 - C) / R); });
 
   /* parole: pulsanti veri, sul bordo dell'anello */
   var bottoni = PAROLE.map(function (p, i) {
@@ -83,16 +85,21 @@
     var g = Math.min(1, Math.max(0, (s - START - b * STEP) / DUR));
     return (1 - Math.pow(1 - g, 2.2)) * reach[b];
   }
+  /* per ogni ramo, una volta a fotogramma: fin dove arriva, quanto e' virato verso l'ottone, l'inizio del colore */
+  var lim = [], vir = [], col = [];
   function disegna(s, ora) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, S, S); ctx.lineCap = "round";
+    for (var b = 0; b < N; b++) {
+      var f = arrivo[b] != null ? Math.min(1, (ora - arrivo[b]) / 700) : 0;
+      lim[b] = taglio(b, s); vir[b] = f;
+      col[b] = "rgba(" + Math.round(AV[0] + (OT[0] - AV[0]) * f) + "," + Math.round(AV[1] + (OT[1] - AV[1]) * f) + "," + Math.round(AV[2] + (OT[2] - AV[2]) * f) + ",";
+    }
     for (var i = 0; i < segs.length; i++) {
       var sg = segs[i];
-      if (sg.t > taglio(sg.b, s)) continue;
-      var r = Math.hypot(sg.x1 - C, sg.y1 - C) / R, k = Math.min(1, r);
-      var f = arrivo[sg.b] != null ? Math.min(1, (ora - arrivo[sg.b]) / 700) : 0;
-      var c = AV.map(function (v, j) { return Math.round(v + (OT[j] - v) * f); });
-      ctx.strokeStyle = "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + (0.16 + 0.42 * k * k + 0.12 * f).toFixed(3) + ")";
+      if (sg.t > lim[sg.b]) continue;
+      var k = sg.k;
+      ctx.strokeStyle = col[sg.b] + (0.16 + 0.42 * k * k + 0.12 * vir[sg.b]).toFixed(3) + ")";
       ctx.lineWidth = sg.w * S / 520 + 0.3;
       ctx.beginPath(); ctx.moveTo(sg.x1 * S, sg.y1 * S); ctx.lineTo(sg.x2 * S, sg.y2 * S); ctx.stroke();
     }
