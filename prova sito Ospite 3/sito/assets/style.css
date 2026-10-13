@@ -382,3 +382,7 @@ h2{font-size:clamp(2.1rem, 5vw, 3.5rem)}
 /* grafico senza JavaScript: niente riquadri vuoti, al loro posto l'esempio in numeri */
 html:not(.js) .grafico,html:not(.js) .ricevuta{display:none}
 .senza-js{background:#fff;border:1px solid var(--linea);border-radius:2px;padding:1rem 1.1rem;max-width:40rem}
+
+/* etichetta "Esempio" su tutti gli schermi del telefono, dove non copre il testo */
+.esempio-sotto{top:2.7rem}
+.esempio-basso{top:auto;bottom:1.2rem}
