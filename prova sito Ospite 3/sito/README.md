@@ -27,6 +27,39 @@ In cima a `assets/site.js`:
 
 I due calcolatori (home e "Il conto") usano **la stessa funzione** `contoAnno`, quindi non possono dare numeri diversi.
 
+## Dove vive ogni cosa ripetuta
+
+Senza un programma che costruisca le pagine, i numeri sono scritti a mano in più posti. Se ne cambi uno, cambialo **ovunque** compaia. Il comando in fondo li elenca tutti, con file e riga.
+
+| Cosa | Oggi | Dove compare | In `assets/site.js` | Attenzione |
+|---|---|---|---|---|
+| Canone del piano | 68 € al mese | `index` (titolo, prezzi, esempio), `come-lavoriamo`, `prenotazioni-dirette-torino`, `domande`, `commissioni-airbnb-booking` (testo e riquadro senza JavaScript), meta description di `index` e `come-lavoriamo` | `FISSO` | anche la frase «più i 68 € al mese del piano» nel grafico viene da `FISSO`; «68 € al mese più l'1,5%» è scritto anche dentro `images/condividi.jpg` (il comando non lo trova: va rifatta l'immagine) |
+| Percentuale del piano | 1,5% | stesse pagine del canone, più la legenda e la ricevuta del grafico | `PCT` | anche dentro `images/condividi.jpg` |
+| Prova a metà prezzo | 34 € + 0,75%, primi 60 giorni | riquadro scuro dei prezzi in `index`, `come-lavoriamo`, `prenotazioni-dirette-torino`; risposta «Quanto costa?» in `domande` | (il conto annuale calcola da solo la metà di `FISSO` e `PCT`) | |
+| Scadenza della prova | 30 novembre 2026 | gli stessi 4 punti della riga sopra | — | dal 1° dicembre 2026 è un'offerta scaduta: va cambiata o tolta |
+| Partire per le feste | «entro metà novembre» | `come-lavoriamo` (2 volte) | — | scade a metà novembre |
+| Durata della prova | 60 giorni | `index`, `come-lavoriamo`, `prenotazioni-dirette-torino`, `domande`, `commissioni-airbnb-booking` | — | |
+| Preavviso di disdetta | 30 giorni | nota sotto i prezzi (3 pagine), `domande` | — | in `privacy.html` «30 giorni» è un'altra cosa (tempo di risposta): non toccarla |
+| Commissione Airbnb | 15,5% dal 13 ottobre 2026 | quasi ogni pagina, l'avviso in `index` e `commissioni-airbnb-booking`, la ruota (`assets/ruota.js`), l'immagine per i social (`images/condividi.jpg`, testo dentro l'immagine) | `COMM` | `og:image:alt` lo ripete in tutte le pagine |
+| Commissione Booking | circa 15% | `index` (fatti), `commissioni-airbnb-booking` (testo e pulsante `data-val="15"`) | — | |
+| Lodgify | da circa 33 € al mese | nota sotto i prezzi (3 pagine), `come-lavoriamo` («Chi paga cosa»), `domande` | — (oggi non entra nei calcoli) | prezzo da verificare sul listino |
+| Soglia per fermare gli annunci | 150 € a prenotazione | `come-lavoriamo`, `domande` | — | |
+| Annunci per prenotazione | 70 € | cursore `#r-ann` e testo in `commissioni-airbnb-booking` | — | valore iniziale del cursore |
+| Ipotesi del conto rapido | 15% passa alla pagina, 10% notti riempite, 3 € al giorno per unità | frase «Ipotesi: …» in `index`; valori iniziali dei cursori `#a-s`, `#a-f`, `#a-a` in `commissioni-airbnb-booking` | `QUOTA_DIRETTA`, `NOTTI_RIEMPITE`, `ANNUNCI_UNITA` | i cursori del conto completo devono partire dagli stessi valori |
+| Pagamento online | 3% | `index` (ipotesi), `commissioni-airbnb-booking` | `PAY` | |
+| Costo di una notte in più | 20% | `index` (ipotesi), `commissioni-airbnb-booking` | `COSTO_NOTTE` | |
+| Asse del grafico | da 200 € a 4.000 € | cursore `#r-sogg` (min e max) | `GRAFICO_DA`, `GRAFICO_A` | |
+| Anno nel piè di pagina | © 2026 | tutte le 8 pagine | — | da cambiare a gennaio |
+| Data di aggiornamento | `lastmod` | `sitemap.xml` (5 righe) | — | da aggiornare a ogni modifica dei testi |
+
+**Il controllo, con un solo comando** (dalla cartella del sito):
+
+```sh
+grep -rnoE --include='*.html' --include='*.js' --include='*.xml' '(^|[^0-9.,])(68|34|33|150|70)( |&nbsp;)€|(^|[^0-9])1,5%|0,75%|15,5%|circa 15%|30 novembre|metà novembre|13 ottobre|60 giorni|30 giorni|(^|[^0-9.,])3( |&nbsp;)€ al giorno|© 2026|<lastmod>[^<]*' . | sort
+```
+
+Stampa ogni occorrenza come `file:riga:testo`. Dopo una modifica, il valore vecchio non deve comparire più.
+
 ## Il modulo di contatto
 
 Funziona solo su Netlify (Netlify Forms): le richieste arrivano nel pannello del sito, sezione Forms. In locale non invia. C'è un campo trappola contro lo spam.
