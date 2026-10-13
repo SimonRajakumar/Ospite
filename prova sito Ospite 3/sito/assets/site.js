@@ -77,16 +77,6 @@
     });
   }
 
-  /* ---------- il 13 ottobre: una data vera, detta in modo onesto ---------- */
-  $$("[data-avviso]").forEach(function (el) {
-    var oggi = new Date(), d0 = new Date(2026, 9, 13);
-    var giorni = Math.round((d0 - new Date(oggi.getFullYear(), oggi.getMonth(), oggi.getDate())) / 86400000);
-    if (giorni > 1) el.textContent = "Dal 13 ottobre Airbnb trattiene il 15,5% sulle nuove prenotazioni. Mancano " + giorni + " giorni: vale la pena fare il conto prima.";
-    else if (giorni === 1) el.textContent = "Da domani Airbnb trattiene il 15,5% sulle nuove prenotazioni: vale la pena fare il conto oggi.";
-    else if (giorni === 0) el.textContent = "Da oggi Airbnb trattiene il 15,5% sulle nuove prenotazioni. Vale la pena fare il conto.";
-    else el.textContent = "Dal 13 ottobre la commissione del 15,5% è sulla tua fattura. Guarda quanto ti è costata, poi fai il conto.";
-  });
-
   /* ---------- il conto di un anno (stesso modello ovunque) ----------
      1. una quota del fatturato passa alla pagina diretta: commissione evitata, meno pagamento
      2. una quota delle notti vuote si riempie con soggiorni nuovi: prezzo meno pagamento e costi della notte

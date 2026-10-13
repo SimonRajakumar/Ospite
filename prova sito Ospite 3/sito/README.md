@@ -37,7 +37,7 @@ Funziona solo su Netlify (Netlify Forms): le richieste arrivano nel pannello del
 2. Il dominio nei canonical, nelle anteprime, in `sitemap.xml` e `robots.txt` è quello di Netlify (`fantastic-bombolone-9636cc.netlify.app`). Con un dominio vero, sostituiscilo ovunque.
 3. **Chi c'è dietro.** Il problema più grave rimasto: nessun nome, foto, partita IVA o telefono. Vanno messi nel piede e in `privacy.html`, dove ora c'è un commento nascosto che lo ricorda. L'informativa non è completa finché il titolare non è identificato: falla verificare a un professionista.
 4. **La scadenza della prova.** Il sito promette la metà prezzo a chi inizia entro il 30 novembre 2026. Dopo quella data va tolta o cambiata: una scadenza non rispettata costa la fiducia.
-5. **L'avviso del 13 ottobre** cambia da solo testo dopo quella data (in `assets/site.js`). Da gennaio 2027 conviene sostituirlo.
+5. **L'avviso del 13 ottobre** è una frase fissa, al passato, uguale in `index.html` e `commissioni-airbnb-booking.html` (nessuno script). Da gennaio 2027 conviene sostituirla.
 6. Inserisci il numero WhatsApp in `assets/site.js`, se lo vuoi.
 7. Se installi un pixel di Meta o un tag di Google Ads, la frase sui cookie in `privacy.html` diventa falsa: serve un banner per il consenso.
 8. Controlla i fatti: Airbnb 15,5% dal 13 ottobre 2026 (fonte: documento di Airbnb alla SEC), Booking circa 15%, listino Lodgify (da circa 33 € al mese nel piano senza commissioni).
