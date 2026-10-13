@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calcolatore dei piani (uso interno)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0D0B0C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230D0B0C'/%3E%3Ccircle cx='16' cy='16' r='8.5' fill='none' stroke='%23F4EFE7' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%236E1F2B'/%3E%3C/svg%3E">
+<script>document.documentElement.className+=" js"</script>
+<link rel="preload" href="assets/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.pz-preset{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+.pz-preset button{font:500 .95rem var(--sans);padding:.65rem .95rem;border:1px solid rgba(244,239,231,.45);background:transparent;color:var(--avorio);border-radius:2px;cursor:pointer}
+.pz-preset button:hover{background:rgba(244,239,231,.1)}
+.pz-nota-preset{margin-top:.9rem;font-size:.9rem;color:rgba(244,239,231,.7);max-width:46rem}
+.pz-form{display:grid;gap:2.5rem;margin-top:2rem}
+.pz-box h2{font-size:1.7rem;margin-bottom:1rem}
+.pz-gruppo{border-top:1px solid var(--testo);padding-top:.9rem;margin-top:1.4rem}
+.pz-gruppo:first-of-type{margin-top:0}
+.pz-gruppo h3{font-size:1.25rem;margin-bottom:.2rem}
+.pz-gruppo .pz-sotto{font-size:.88rem;color:var(--testo2);margin-bottom:.8rem;line-height:1.4}
+.pz-campi{display:grid;gap:1rem}
+.pz-campo label{display:block;font-weight:500;font-size:.98rem}
+.pz-campo input,.pz-campo select{width:100%;margin-top:.35rem;font:500 1.05rem var(--sans);padding:.7rem .8rem;border:1px solid var(--linea);border-radius:2px;background:#fff;color:var(--testo)}
+.pz-campo .aiuto{margin-top:.25rem;font-size:.84rem;color:var(--testo2);line-height:1.4}
+.pz-riga2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.pz-risultati{display:grid;gap:1.25rem;margin-top:2.5rem}
+.pz-card{background:#fff;border:1px solid var(--linea);border-radius:2px;padding:1.1rem 1.2rem}
+.pz-card h3{font-size:1.3rem}
+.pz-card dl{margin:.8rem 0 0;display:grid;grid-template-columns:1fr auto;gap:.4rem .8rem;font-size:.95rem;font-variant-numeric:tabular-nums}
+.pz-card dt{color:var(--testo2)}
+.pz-card dd{margin:0;text-align:right}
+.pz-card .grande{border-top:1px solid var(--linea);padding-top:.5rem;margin-top:.2rem;font-weight:600;color:var(--testo)}
+.pz-verdetto{margin-top:.9rem;padding:.55rem .75rem;border-radius:2px;font-size:.92rem;line-height:1.35}
+.pz-verdetto.ok{background:#E8F1E6;color:#25461F}
+.pz-verdetto.debole{background:#F6EEDC;color:#5E4513}
+.pz-verdetto.no{background:#F6E3E3;color:#6E1F2B}
+.pz-base{margin-top:1.4rem;display:grid;gap:1.4rem}
+.pz-attenzione{margin-top:2rem;padding:1.1rem 1.2rem;border-left:3px solid var(--bordeaux);background:var(--avorio);font-size:1rem;line-height:1.55}
+.pz-attenzione strong{font-weight:600}
+@media (min-width:52rem){
+  .pz-form{grid-template-columns:1fr 1fr;gap:4rem}
+  .pz-risultati{grid-template-columns:repeat(3,1fr)}
+  .pz-base{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<a class="salta" href="#contenuto">Vai al contenuto</a>
+<header class="testata">
+  <div class="wrap testata-riga">
+    <a class="marchio" href="index.html">Ospite</a>
+    <span style="font-size:.9rem;color:rgba(244,239,231,.7)">Uso interno</span>
+  </div>
+</header>
+<main id="contenuto">
+  <section class="apertura">
+    <div class="wrap">
+      <span class="filetto"></span>
+      <h1>Calcolatore dei piani</h1>
+      <p class="intro">Tutto in euro. Parte dai tre piani di Bartek e li mette alla prova con tre fonti di guadagno separate per il cliente: le prenotazioni che passano al diretto, i soggiorni davvero nuovi portati dagli annunci, e il fatturato in più che viene da prezzi e annuncio migliori. Nessuna pretesa che tutte le prenotazioni passino da noi.</p>
+      <div class="pz-preset" role="group" aria-label="Esempi di partenza">
+        <button type="button" data-preset="federico">Federico: 9 appartamenti</button>
+        <button type="button" data-preset="resort">Resort con ospiti fedeli</button>
+        <button type="button" data-preset="villa">Villa singola</button>
+        <button type="button" data-preset="bartek">Foglio di Bartek (tutto al diretto)</button>
+      </div>
+      <p class="pz-nota-preset" id="pz-nota-preset"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="pz-titolo-form">
+    <div class="wrap">
+      <h2 id="pz-titolo-form" style="font-size:clamp(1.8rem,4vw,2.6rem)">Numeri di partenza</h2>
+      <div class="pz-form">
+        <div class="pz-box">
+          <h2>Il cliente</h2>
+          <div class="pz-gruppo">
+            <h3>La struttura</h3>
+            <div class="pz-campi">
+              <div class="pz-riga2">
+                <div class="pz-campo"><label for="u">Unità</label><input id="u" type="number" inputmode="numeric" min="1" max="60" step="1" value="9"></div>
+                <div class="pz-campo"><label for="p">Prezzo medio a notte (€)</label><input id="p" type="number" inputmode="decimal" min="0" step="1" value="200"></div>
+              </div>
+              <div class="pz-riga2">
+                <div class="pz-campo"><label for="g">Giorni di apertura all'anno</label><input id="g" type="number" inputmode="numeric" min="30" max="365" step="1" value="365"><p class="aiuto">Resort stagionale: 120. Città: 365.</p></div>
+                <div class="pz-campo"><label for="o">Occupazione (%)</label><input id="o" type="number" inputmode="decimal" min="0" max="100" step="1" value="55"></div>
+              </div>
+              <div class="pz-riga2">
+                <div class="pz-campo"><label for="n">Notti per soggiorno</label><input id="n" type="number" inputmode="decimal" min="1" step="0.5" value="2.5"></div>
+                <div class="pz-campo"><label for="c">Commissione della piattaforma (%)</label><input id="c" type="number" inputmode="decimal" min="0" max="40" step="0.5" value="15.5"></div>
+              </div>
+              <div class="pz-campo"><label for="y">Costo del pagamento online (%)</label><input id="y" type="number" inputmode="decimal" min="0" max="10" step="0.1" value="3"></div>
+            </div>
+          </div>
+          <div class="pz-gruppo">
+            <h3>1. Prenotazioni che passano al diretto</h3>
+            <p class="pz-sotto">Ospiti che avrebbero prenotato comunque, ma ora lo fanno dalla pagina del cliente: chi torna, chi lo cerca per nome.</p>
+            <div class="pz-campo"><label for="s">Quota del fatturato attuale (%)</label><input id="s" type="number" inputmode="decimal" min="0" max="100" step="5" value="15"><p class="aiuto">Non tutto: una parte. Da misurare nei clienti di Bartek. Il suo foglio assume 100%.</p></div>
+          </div>
+          <div class="pz-gruppo">
+            <h3>2. Soggiorni nuovi dagli annunci</h3>
+            <p class="pz-sotto">Il budget compra clic, una parte dei clic prenota. Alcune di queste prenotazioni sono nuove: riempiono notti che altrimenti restavano vuote.</p>
+            <div class="pz-campi">
+              <div class="pz-riga2">
+                <div class="pz-campo"><label for="a">Annunci al giorno, tutte le unità (€)</label><input id="a" type="number" inputmode="decimal" min="0" step="1" value="18"><p class="aiuto">Bartek usa circa 6 €. Qui il triplo.</p></div>
+                <div class="pz-campo"><label for="cpc">Costo per clic (€)</label><input id="cpc" type="number" inputmode="decimal" min="0.05" step="0.05" value="0.7"><p class="aiuto">Benchmark di settore, da verificare.</p></div>
+              </div>
+              <div class="pz-riga2">
+                <div class="pz-campo"><label for="cv">Clic che prenotano (%)</label><input id="cv" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="1"><p class="aiuto">Fonti di settore: 0,5–2%.</p></div>
+                <div class="pz-campo"><label for="i">Di queste, nuove (%)</label><input id="i" type="number" inputmode="decimal" min="0" max="100" step="5" value="30"><p class="aiuto">Il numero che la prova di 60 giorni deve misurare.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="pz-gruppo">
+            <h3>3. Prezzi e annuncio migliori</h3>
+            <p class="pz-sotto">Prezzi che seguono la domanda, titolo e descrizione riscritti, foto, regole del calendario.</p>
+            <div class="pz-riga2">
+              <div class="pz-campo"><label for="up">Aumento del fatturato (%)</label><input id="up" type="number" inputmode="decimal" min="0" max="50" step="1" value="5"><p class="aiuto">Un'ipotesi. Le fonti dei fornitori dicono 15–40%, ma sono di parte.</p></div>
+              <div class="pz-campo"><label for="v">Costo di ogni notte in più (%)</label><input id="v" type="number" inputmode="decimal" min="0" max="80" step="1" value="20"><p class="aiuto">Pulizie, lenzuola, consumi.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pz-box">
+          <h2>I piani</h2>
+          <div class="pz-gruppo">
+            <h3>Piano 1: canone per unità</h3>
+            <div class="pz-campo"><label for="f1">Canone per unità al mese (€)</label><input id="f1" type="number" inputmode="decimal" min="0" step="1" value="34"><p class="aiuto">Il piano 1 di Bartek, in euro.</p></div>
+          </div>
+          <div class="pz-gruppo">
+            <h3>Piano 2: fisso + percentuale</h3>
+            <div class="pz-riga2">
+              <div class="pz-campo"><label for="f2">Fisso al mese (€)</label><input id="f2" type="number" inputmode="decimal" min="0" step="1" value="68"></div>
+              <div class="pz-campo"><label for="pc2">Percentuale (%)</label><input id="pc2" type="number" inputmode="decimal" min="0" max="30" step="0.1" value="1.5"></div>
+            </div>
+          </div>
+          <div class="pz-gruppo">
+            <h3>Piano 3: solo percentuale</h3>
+            <div class="pz-campo"><label for="pc3">Percentuale (%)</label><input id="pc3" type="number" inputmode="decimal" min="0" max="30" step="0.1" value="7"></div>
+          </div>
+          <div class="pz-gruppo">
+            <h3>Su cosa si calcola la percentuale</h3>
+            <div class="pz-campo">
+              <select id="base" aria-label="Base della percentuale"><option value="dirette" selected>solo prenotazioni dirette e nuove</option><option value="totale">tutto il fatturato (come nel foglio di Bartek)</option></select>
+              <p class="aiuto">Da chiedere a Bartek. Nel suo foglio è sul fatturato totale, e cambia moltissimo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pz-risultati" aria-live="polite">
+        <article class="pz-card" id="k1"><h3>Piano 1</h3><dl>
+          <dt>Il cliente paga (all'anno)</dt><dd data-k="fee"></dd>
+          <dt>Al cliente restano in più</dt><dd data-k="net"></dd>
+          <dt>Noi incassiamo al mese</dt><dd data-k="noim"></dd>
+          <dt class="grande">Restano per ogni € pagato</dt><dd class="grande" data-k="ratio"></dd>
+          <dt>Conviene se passa al diretto almeno</dt><dd data-k="be"></dd>
+        </dl><p class="pz-verdetto" data-k="verd"></p></article>
+        <article class="pz-card" id="k2"><h3>Piano 2</h3><dl>
+          <dt>Il cliente paga (all'anno)</dt><dd data-k="fee"></dd>
+          <dt>Al cliente restano in più</dt><dd data-k="net"></dd>
+          <dt>Noi incassiamo al mese</dt><dd data-k="noim"></dd>
+          <dt class="grande">Restano per ogni € pagato</dt><dd class="grande" data-k="ratio"></dd>
+          <dt>Conviene se passa al diretto almeno</dt><dd data-k="be"></dd>
+        </dl><p class="pz-verdetto" data-k="verd"></p></article>
+        <article class="pz-card" id="k3"><h3>Piano 3</h3><dl>
+          <dt>Il cliente paga (all'anno)</dt><dd data-k="fee"></dd>
+          <dt>Al cliente restano in più</dt><dd data-k="net"></dd>
+          <dt>Noi incassiamo al mese</dt><dd data-k="noim"></dd>
+          <dt class="grande">Restano per ogni € pagato</dt><dd class="grande" data-k="ratio"></dd>
+          <dt>Conviene se passa al diretto almeno</dt><dd data-k="be"></dd>
+        </dl><p class="pz-verdetto" data-k="verd"></p></article>
+      </div>
+
+      <div class="pz-base" aria-live="polite">
+        <div class="pz-card"><h3>Il cliente oggi, prima del nostro compenso</h3><dl>
+          <dt>Fatturato all'anno</dt><dd id="b-rev"></dd>
+          <dt>Commissioni pagate oggi</dt><dd id="b-comm"></dd>
+          <dt>1. Commissioni evitate</dt><dd id="b-gross"></dd>
+          <dt>Costo del pagamento online</dt><dd id="b-pay"></dd>
+          <dt>2. Guadagno dai soggiorni nuovi</dt><dd id="b-inc"></dd>
+          <dt>3. Guadagno da prezzi e annuncio</dt><dd id="b-up"></dd>
+          <dt>Annunci (all'anno)</dt><dd id="b-ads"></dd>
+          <dt class="grande">Resta in totale</dt><dd class="grande" id="b-pool"></dd>
+        </dl></div>
+        <div class="pz-card"><h3>Cosa compra il budget</h3><dl>
+          <dt>Clic all'anno</dt><dd id="b-clk"></dd>
+          <dt>Prenotazioni dagli annunci</dt><dd id="b-book"></dd>
+          <dt>Costo per prenotazione</dt><dd id="b-cpb"></dd>
+          <dt>Di cui nuove</dt><dd id="b-new"></dd>
+          <dt class="grande">Fatturato da soggiorni nuovi</dt><dd class="grande" id="b-newrev"></dd>
+        </dl><p class="nota" style="margin-top:.8rem" id="b-nota"></p></div>
+      </div>
+
+      <p class="pz-attenzione"><strong>Come leggerlo.</strong> Un piano è equilibrato quando al cliente restano almeno due euro per ogni euro che ci paga. Un soggiorno nuovo vale molto più di una commissione evitata: porta tutto il fatturato, meno pulizie e pagamento. Ma quante prenotazioni degli annunci siano davvero nuove nessuno lo sa ancora: è la cosa da misurare nella prova.</p>
+    </div>
+  </section>
+</main>
+<script src="assets/piani.js" defer></script>
+</body>
+</html>

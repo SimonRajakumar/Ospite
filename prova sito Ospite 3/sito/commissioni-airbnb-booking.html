@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Commissioni Airbnb 15,5% e Booking: quanto ti resta | Ospite</title>
+<meta name="description" content="Dal 13 ottobre 2026 Airbnb trattiene il 15,5% agli host europei. Confronta commissione e prenotazione diretta, soggiorno per soggiorno e su un anno.">
+<meta name="robots" content="noindex"><!-- AL LANCIO: togli questa riga -->
+<link rel="canonical" href="https://fantastic-bombolone-9636cc.netlify.app/commissioni-airbnb-booking">
+<meta name="theme-color" content="#0D0B0C">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Ospite">
+<meta property="og:title" content="Commissioni Airbnb 15,5% e Booking: quanto ti resta | Ospite">
+<meta property="og:description" content="Dal 13 ottobre 2026 Airbnb trattiene il 15,5% agli host europei. Confronta commissione e prenotazione diretta, soggiorno per soggiorno e su un anno.">
+<meta property="og:url" content="https://fantastic-bombolone-9636cc.netlify.app/commissioni-airbnb-booking">
+<meta property="og:image" content="https://fantastic-bombolone-9636cc.netlify.app/images/condividi.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ospite: l'ospite che torna da te ti costa il 15,5%.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230D0B0C'/%3E%3Ccircle cx='16' cy='16' r='8.5' fill='none' stroke='%23F4EFE7' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%236E1F2B'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>document.documentElement.className+=" js"</script>
+<link rel="preload" href="assets/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="salta" href="#contenuto">Vai al contenuto</a>
+<header class="testata">
+  <div class="wrap testata-riga">
+    <a class="marchio" href="index.html">Ospite</a>
+    <nav class="menu" aria-label="Pagine"><a href="commissioni-airbnb-booking.html" aria-current="page">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a></nav>
+    <a class="btn btn-vino btn-piccolo solo-desk" href="#contatti">Parliamone</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-mobile">Menu</button>
+  </div>
+  <nav class="menu-mobile" id="menu-mobile" aria-label="Pagine"><a href="commissioni-airbnb-booking.html" aria-current="page">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a><a href="#contatti">Parliamone</a></nav>
+</header>
+<main id="contenuto">
+  <section class="apertura">
+    <div class="wrap">
+      <span class="filetto"></span>
+      <h1>Commissioni Airbnb 15,5% e Booking: quanto ti resta</h1>
+      <p class="intro">Fino a ottobre l'host pagava il 3% e l'ospite una commissione separata. Dal 13 ottobre 2026 Airbnb passa alla commissione unica: il 15,5% lo paga tutto l'host, sulle prenotazioni fatte da quel giorno. Booking.com lavora così da anni, con una percentuale che in Italia di solito si aggira sul 15%.</p>
+      <p class="avviso" data-avviso>Dal 13 ottobre 2026 Airbnb trattiene il 15,5% alla maggior parte degli host europei.</p>
+    </div>
+  </section>
+  <section aria-labelledby="calcolo-titolo">
+    <div class="wrap">
+      <h2 id="calcolo-titolo">Una prenotazione</h2>
+      <p class="intro">Scegli la piattaforma e sposta i cursori: il grafico e il conto si aggiornano da soli.</p>
+      <div class="calcolo" data-calcolo>
+        <div class="comandi">
+          <div class="comando">
+            <span class="etichetta">La tua piattaforma <output id="o-piatt">15,5%</output></span>
+            <div class="segmenti" role="group" aria-label="Piattaforma">
+              <button type="button" data-val="15.5" aria-pressed="true">Airbnb 15,5%</button>
+              <button type="button" data-val="15" aria-pressed="false">Booking, circa 15%</button>
+              <button type="button" data-val="altra" aria-pressed="false">Altra</button>
+            </div>
+            <div class="comando" id="c-altra" hidden style="margin-top:.9rem">
+              <label for="r-altra">La tua commissione <output id="o-altra" for="r-altra">18%</output></label>
+              <input id="r-altra" type="range" min="8" max="25" step="0.5" value="18">
+            </div>
+          </div>
+          <label class="spunta"><input type="checkbox" id="c-iva"><span>Includi l'IVA sulla commissione (22%), se la paghi.</span></label>
+          <div class="comando">
+            <label for="r-sogg">Valore dell'intero soggiorno <output id="o-sogg" for="r-sogg">1.000 €</output></label>
+            <input id="r-sogg" type="range" min="200" max="4000" step="50" value="1000">
+            <p class="aiuto">Tutte le notti insieme, senza tasse. Esempio: 4 notti a 250 € fanno 1.000 €.</p>
+          </div>
+          <div class="comando">
+            <label for="r-ann">Annunci, per ogni prenotazione <output id="o-ann" for="r-ann">70 €</output></label>
+            <input id="r-ann" type="range" min="0" max="300" step="10" value="70">
+            <p class="aiuto">Una stima: circa 0,70 € a clic, una prenotazione ogni cento clic. La prova misura il numero vero.</p>
+          </div>
+          <p class="nota">Nel conto: pagamento online (3%, stima) e il nostro 1,5%. I 68 € al mese fissi sono nel conto annuale qui sotto.</p>
+        </div>
+        <div>
+          <figure class="grafico">
+            <svg id="grafico-svg" role="img" aria-label="Quanto costa un soggiorno sulla piattaforma e dalla tua pagina, al variare del suo valore"></svg>
+            <figcaption class="legenda"><span style="--c:#D3362D">Piattaforma: la commissione</span><span style="--c:#2457E6">Dalla tua pagina: pagamento, annunci, nostro 1,5%</span><span class="area" style="--c:rgba(36,87,230,.18)">Quello che ti resta in più</span></figcaption>
+          </figure>
+          <div class="ricevuta" aria-live="polite">
+            <div class="colonna">
+              <p class="col-titolo" style="--c:#D3362D">Sulla piattaforma</p>
+              <dl><dt>Commissione</dt><dd id="x-comm"></dd><dt class="tot">Ti restano</dt><dd class="tot" id="x-resta-a"></dd></dl>
+            </div>
+            <div class="colonna">
+              <p class="col-titolo" style="--c:#2457E6">Dalla tua pagina</p>
+              <dl><dt>Pagamento online</dt><dd id="x-pag"></dd><dt>Annunci</dt><dd id="x-ann"></dd><dt>Il nostro 1,5%</dt><dd id="x-noi"></dd><dt class="tot">Ti restano</dt><dd class="tot" id="x-resta-b"></dd></dl>
+            </div>
+            <p class="esito" id="esito"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sfondo-avorio" id="anno" aria-labelledby="anno-titolo">
+    <div class="wrap">
+      <h2 id="anno-titolo">Su un anno, con il nostro piano</h2>
+      <p class="intro">Due fonti di guadagno, una solida e una da misurare, e tutti i costi dentro. I prezzi migliori non li contiamo.</p>
+      <div class="conto" data-conto="full">
+        <div class="conto-campi">
+          <div class="comando"><label for="a-u">Unità <output data-v="u" for="a-u"></output></label><input id="a-u" data-k="u" type="range" min="1" max="20" step="1" value="3"></div>
+          <div class="comando"><label for="a-p">Prezzo medio a notte <output data-v="p" for="a-p"></output></label><input id="a-p" data-k="p" type="range" min="50" max="600" step="10" value="150"></div>
+          <div class="comando"><label for="a-o">Occupazione <output data-v="o" for="a-o"></output></label><input id="a-o" data-k="o" type="range" min="20" max="95" step="5" value="60"></div>
+          <div class="comando"><label for="a-s">Prenotazioni che passano alla tua pagina <output data-v="s" for="a-s"></output></label><input id="a-s" data-k="s" type="range" min="0" max="50" step="5" value="15"><p class="aiuto">Sono soprattutto gli ospiti di ritorno e chi cerca la casa per nome. La prova di 60 giorni misura la percentuale vera per la tua casa.</p></div>
+          <div class="comando"><label for="a-f">Notti vuote che riempiamo <output data-v="f" for="a-f"></output></label><input id="a-f" data-k="f" type="range" min="0" max="40" step="5" value="10"><p class="aiuto">Il numero più incerto: è quello che la prova misura.</p></div>
+          <div class="comando"><label for="a-a">Quanto spendi in annunci al giorno, in tutto <output data-v="a" for="a-a"></output></label><input id="a-a" data-k="a" type="range" min="0" max="80" step="1" value="9"><p class="aiuto">Li paghi tu, direttamente a Meta e Google. Consigliamo 3 € al giorno per unità.</p></div>
+        </div>
+        <div class="conto-esito" aria-live="polite">
+          <div class="riga"><div class="lbl">Oggi lasci alle piattaforme, in un anno</div><div class="num" data-o="oggi"></div></div>
+          <div class="riga"><div class="lbl">Con noi ne recuperi, al netto di tutto</div><div class="num grande" data-o="resta"></div><p class="pereuro" data-o="pereuro"></p></div>
+          <div class="riga"><div class="lbl">Ci paghi, in un anno</div><div class="num" data-o="piano"></div><p class="nota" data-o="primoanno"></p></div>
+          <div class="riga conto-azioni"><button class="btn btn-vino" type="button" data-verifica>Verifichiamolo sulla tua casa</button></div>
+        </div>
+      </div>
+      <div class="fonti3" aria-live="polite">
+        <div class="fonte3"><p class="titolo">Commissioni che non paghi più</p><p class="cifra" data-out-full="fonte1"></p><p class="certezza">Solido: dipende solo da quante prenotazioni passano alla tua pagina. Già tolto il pagamento online.</p></div>
+        <div class="fonte3"><p class="titolo">Notti vuote riempite</p><p class="cifra" data-out-full="fonte2"></p><p class="certezza"><span data-out-full="notti"></span> notti, al netto dei costi. Il più incerto: è quello che la prova misura.</p></div>
+        <div class="fonte3"><p class="titolo">Prezzi migliori</p><p class="cifra">non contato</p><p class="certezza">Non lo mettiamo nel conto: se arriva, è in più.</p></div>
+      </div>
+      <p class="nota" style="margin-top:1rem" data-out-full="costi"></p>
+    </div>
+  </section>
+
+  <section id="numeri" aria-labelledby="leggi-titolo">
+    <div class="stretto">
+      <div class="blocco">
+        <h2 id="leggi-titolo">I numeri che usiamo</h2>
+        <p><strong>Prima e dopo il 13 ottobre.</strong> Nel modello a commissione divisa l'host pagava il 3% e l'ospite una commissione separata, di solito tra il 14% e il 16,5%. Con la commissione unica il 15,5% lo paga tutto l'host. Puoi alzare i prezzi per compensare, ma la commissione resta: anche sull'ospite che torna.</p>
+        <p><strong>Airbnb, 15,5%.</strong> Per la maggior parte degli host dello Spazio economico europeo e della Svizzera. Airbnb indica che può variare tra il 14% e il 16%: fa fede la tua fattura.</p>
+        <p><strong>Booking.com, circa 15%.</strong> La percentuale vera è nel contratto della struttura, e sale con i programmi di visibilità.</p>
+        <p><strong>IVA sulla commissione.</strong> Se nel tuo caso si applica, il 15,5% pesa per circa il 18,9%.</p>
+        <p><strong>Pagamento online, 3%.</strong> Una stima prudente. Dipende da come incassi.</p>
+        <p><strong>Annunci, circa 70 € a prenotazione.</strong> Da circa 0,70 € a clic e una prenotazione ogni cento clic: stime pubblicate dai fornitori di pubblicità. La prova misura le tue.</p>
+        <p><strong>Una notte in più costa il 20% del prezzo.</strong> Pulizie, lenzuola, consumi. Una stima: la sostituiamo con i tuoi numeri appena li abbiamo.</p>
+        <p><strong>Il nostro piano.</strong> 68 € al mese più l'1,5% delle prenotazioni fatte sulla tua pagina. Nient'altro.</p>
+      </div>
+      <div class="fonti">
+        <h2>Fonti</h2>
+        <ul>
+          <li><a href="https://www.sec.gov/Archives/edgar/data/0001559720/000119312526337928/d70413dex991.htm" target="_blank" rel="noopener">Lettera agli azionisti del secondo trimestre 2026</a>, Airbnb (documento depositato alla SEC). Il passaggio dalla commissione divisa del 3% alla commissione unica del 15,5%.</li>
+          <li><a href="https://www.rentalscaleup.com/airbnb-host-fees/" target="_blank" rel="noopener">Airbnb's 15.5% host-only fee</a>, Rental Scale-Up. Le scadenze: 13 ottobre 2026 per lo Spazio economico europeo e la Svizzera.</li>
+          <li><a href="https://www.forniturealberghiereonline.it/blog-hotel/1159-airbnb-cambia-le-commissioni-dal-13-ottobre-cosa-devono-valutare-host-e-strutture-ricettive" target="_blank" rel="noopener">Airbnb cambia le commissioni dal 13 ottobre</a>, Forniture Alberghiere Online.</li>
+          <li><a href="https://hostmate.it/quanto-si-paga-a-booking/" target="_blank" rel="noopener">Quanto si paga a Booking? Commissioni e tasse per host</a>, Hostmate.</li>
+          <li><a href="https://roomraccoon.it/blog/commissioni-airbnb-host-la-guida-completa/" target="_blank" rel="noopener">Commissioni Airbnb host: la guida completa</a>, RoomRaccoon.</li>
+        </ul>
+        <p class="nota" style="margin-top:.8rem">Consultate tra il 6 e l'8 ottobre 2026. Verifica sempre la tua fattura e il tuo contratto.</p>
+      </div>
+    </div>
+  </section>
+<section class="contatti" id="contatti" aria-labelledby="contatti-titolo">
+  <div class="wrap">
+    <h2 id="contatti-titolo">Raccontaci la tua casa.</h2>
+    <p>Due righe bastano. Di solito rispondiamo entro un giorno lavorativo.</p>
+    <form class="modulo" name="contatto" method="POST" action="/grazie.html" data-netlify="true" netlify-honeypot="trappola" novalidate>
+      <input type="hidden" name="form-name" value="contatto">
+      <p hidden><label>Non compilare questo campo <input name="trappola"></label></p>
+      <div><label for="f-nome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required></div>
+      <div class="riga2">
+        <div><label for="f-tel">Telefono</label><input id="f-tel" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Es. 333 123 4567"></div>
+        <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="nome@esempio.it"></div>
+      </div>
+      <p class="aiuto" id="f-recapito-aiuto">Basta uno dei due, scritto come preferisci.</p>
+      <div class="riga2">
+        <div><label for="f-unita">Quante unità</label><select id="f-unita" name="unita"><option>1</option><option>Da 2 a 5</option><option>Da 6 a 10</option><option>Più di 10</option></select></div>
+        <div><label for="f-dove">Dove</label><input id="f-dove" name="dove" autocomplete="address-level2" placeholder="Es. Torino, Crocetta"><p class="aiuto">Quartiere o comune: non serve l'indirizzo.</p></div>
+      </div>
+      <div><label for="f-msg">Altro da dirci (facoltativo)</label><textarea id="f-msg" name="messaggio"></textarea></div>
+      <p class="modulo-errore" id="f-errore" role="alert" hidden>Lasciaci un telefono o un'email, così possiamo risponderti.</p>
+      <div><button class="btn btn-chiaro" type="submit">Mandaci due righe</button></div>
+      <p class="nota">Usiamo i tuoi dati solo per risponderti: niente newsletter, e non li cediamo a nessuno. <a href="privacy.html">Informativa privacy</a>.</p>
+    </form>
+    <div class="contatti-altri"><a data-wa hidden href="#">Scrivici su WhatsApp</a></div>
+  </div>
+</section>
+</main>
+<footer class="piede">
+  <div class="wrap piede-griglia">
+    <a class="marchio" href="index.html">Ospite</a>
+    <nav aria-label="Pagine"><a href="commissioni-airbnb-booking.html">Il conto</a><a href="index.html#prezzi">Prezzi</a><a href="come-lavoriamo.html">Come lavoriamo</a><a href="domande.html">Domande</a><a href="prenotazioni-dirette-torino.html">Torino</a><a href="privacy.html">Privacy</a></nav>
+    <span>© 2026 Ospite, Torino</span>
+  </div>
+</footer>
+<div class="barra-mobile"><a class="btn btn-vino" href="#contatti">Parliamone</a></div>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
