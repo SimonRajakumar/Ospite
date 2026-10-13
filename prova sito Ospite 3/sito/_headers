@@ -1,0 +1,22 @@
+# Intestazioni HTTP per Netlify. Valgono per tutto il sito.
+# AL LANCIO: togli la riga "X-Robots-Tag: noindex" (vedi README, "Prima del lancio").
+# Content-Security-Policy: solo risorse del sito stesso. L'unico script in linea
+# (la riga che aggiunge la classe "js" a <html>) e' ammesso per impronta sha256:
+# se cambi quella riga, ricalcola l'impronta (comando nel README).
+# Gli stili in linea servono al grafico e alle foto del telefono di esempio.
+/*
+  X-Robots-Tag: noindex
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-pfgOMgfVZwm2ODyms34QYW9h8EwicylhV77q5LHK8c0='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+# Caratteri: non cambiano, un anno.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Foto: 30 giorni. Se sostituisci una foto tenendo lo stesso nome,
+# chi l'ha gia' vista puo' vedere la vecchia fino a 30 giorni.
+/images/*
+  Cache-Control: public, max-age=2592000

@@ -60,6 +60,18 @@ grep -rnoE --include='*.html' --include='*.js' --include='*.xml' '(^|[^0-9.,])(6
 
 Stampa ogni occorrenza come `file:riga:testo`. Dopo una modifica, il valore vecchio non deve comparire più.
 
+## Intestazioni HTTP (`_headers`)
+
+Netlify legge il file `_headers` e manda con ogni pagina: `X-Robots-Tag: noindex` (da togliere al lancio), una Content-Security-Policy che permette solo file del sito stesso, e una cache lunga per caratteri (un anno) e foto (30 giorni).
+
+L'unico script scritto dentro le pagine è `<script>document.documentElement.className+=" js"</script>`. La policy lo ammette per impronta. **Se cambi quella riga**, ricalcola l'impronta e sostituiscila in `_headers`:
+
+```sh
+printf '%s' 'document.documentElement.className+=" js"' | openssl dgst -sha256 -binary | base64
+```
+
+Se aggiungi uno script esterno, un pixel o un font da un altro server, la policy lo blocca: è voluto.
+
 ## Il modulo di contatto
 
 Funziona solo su Netlify (Netlify Forms): le richieste arrivano nel pannello del sito, sezione Forms. In locale non invia. C'è un campo trappola contro lo spam.
@@ -67,13 +79,14 @@ Funziona solo su Netlify (Netlify Forms): le richieste arrivano nel pannello del
 ## Prima del lancio
 
 1. Togli `<meta name="robots" content="noindex">` da ogni pagina. (Il promemoria «AL LANCIO: togli questa riga», che prima era un commento accanto al tag in ogni pagina, ora sta solo qui.)
-2. Il dominio nei canonical, nelle anteprime, in `sitemap.xml` e `robots.txt` è quello di Netlify (`fantastic-bombolone-9636cc.netlify.app`). Con un dominio vero, sostituiscilo ovunque.
-3. **Chi c'è dietro.** Il problema più grave rimasto: nessun nome, foto, partita IVA o telefono. Vanno messi nel piede e in `privacy.html`, sezione «Chi tratta i dati»: nome e cognome (o ragione sociale), indirizzo, partita IVA e un recapito del titolare. (Prima lo ricordava un commento nascosto nella pagina; ora sta solo qui.) L'informativa non è completa finché il titolare non è identificato: falla verificare a un professionista.
-4. **La scadenza della prova.** Il sito promette la metà prezzo a chi inizia entro il 30 novembre 2026. Dopo quella data va tolta o cambiata: una scadenza non rispettata costa la fiducia.
-5. **L'avviso del 13 ottobre** è una frase fissa, al passato, uguale in `index.html` e `commissioni-airbnb-booking.html` (nessuno script). Da gennaio 2027 conviene sostituirla.
-6. Inserisci il numero WhatsApp in `assets/site.js`, se lo vuoi.
-7. Se installi un pixel di Meta o un tag di Google Ads, la frase sui cookie in `privacy.html` diventa falsa: serve un banner per il consenso.
-8. Controlla i fatti: Airbnb 15,5% dal 13 ottobre 2026 (fonte: documento di Airbnb alla SEC), Booking circa 15%, listino Lodgify (da circa 33 € al mese nel piano senza commissioni).
+2. **In `_headers` togli la riga `X-Robots-Tag: noindex`.** È un secondo lucchetto oltre al meta: finché c'è, nessuna pagina (né foto) finisce su Google, anche se togli il meta.
+3. Il dominio nei canonical, nelle anteprime, in `sitemap.xml` e `robots.txt` è quello di Netlify (`fantastic-bombolone-9636cc.netlify.app`). Con un dominio vero, sostituiscilo ovunque.
+4. **Chi c'è dietro.** Il problema più grave rimasto: nessun nome, foto, partita IVA o telefono. Vanno messi nel piede e in `privacy.html`, sezione «Chi tratta i dati»: nome e cognome (o ragione sociale), indirizzo, partita IVA e un recapito del titolare. (Prima lo ricordava un commento nascosto nella pagina; ora sta solo qui.) L'informativa non è completa finché il titolare non è identificato: falla verificare a un professionista.
+5. **La scadenza della prova.** Il sito promette la metà prezzo a chi inizia entro il 30 novembre 2026. Dopo quella data va tolta o cambiata: una scadenza non rispettata costa la fiducia.
+6. **L'avviso del 13 ottobre** è una frase fissa, al passato, uguale in `index.html` e `commissioni-airbnb-booking.html` (nessuno script). Da gennaio 2027 conviene sostituirla.
+7. Inserisci il numero WhatsApp in `assets/site.js`, se lo vuoi.
+8. Se installi un pixel di Meta o un tag di Google Ads, la frase sui cookie in `privacy.html` diventa falsa: serve un banner per il consenso.
+9. Controlla i fatti: Airbnb 15,5% dal 13 ottobre 2026 (fonte: documento di Airbnb alla SEC), Booking circa 15%, listino Lodgify (da circa 33 € al mese nel piano senza commissioni).
 
 ## Regole di Simon
 
